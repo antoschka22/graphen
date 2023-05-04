@@ -2,7 +2,7 @@
 package org.example;
 import java.io.*;
 
-public class Matrix{
+public class Adjazenzmatrix{
     private int[][] matrix;
     private int knoten;
 
