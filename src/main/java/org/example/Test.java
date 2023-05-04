@@ -1,29 +1,31 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Test {
 
     public static void main(String[] args) {
         try {
-            Matrix matrix = new Matrix(Matrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
+            Adjazenzmatrix matrix = new Adjazenzmatrix(Adjazenzmatrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
             Logic logic = new Logic(matrix);
             logic.getMatrix().printMatrix();
 
             System.out.println("Distanzmatrix");
-            Matrix distanzMatrix = new Matrix(logic.getDistanzMatrix().getMatrix());
+            Adjazenzmatrix distanzMatrix = new Adjazenzmatrix(logic.getDistanzMatrix().getMatrix());
             distanzMatrix.printMatrix();
 
             System.out.println("Exzentrität");
-            int[] exzentri = logic.getExzentri();
-            for(int i = 0; i < exzentri.length; i++){
-                System.out.print(exzentri[i]+";");
+            HashMap<Integer, Integer> exzentri = logic.getExzentri();
+            for (Map.Entry<Integer, Integer> entry : exzentri.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
             }
             System.out.println();
             System.out.println();
 
             System.out.println("Wegmatrix");
-            Matrix wegMatrix = new Matrix(logic.getWegMatrix().getMatrix());
+            Adjazenzmatrix wegMatrix = new Adjazenzmatrix(logic.getWegMatrix().getMatrix());
             wegMatrix.printMatrix();
 
             System.out.println("Komponente");
@@ -46,7 +48,7 @@ public class Test {
 
             System.out.println();
             System.out.println("Zentrum");
-            System.out.println(logic.getRadius());
+            System.out.println(logic.getZentrum());
 
             System.out.println();
             System.out.println("Artikulationen");
@@ -54,7 +56,15 @@ public class Test {
 
             System.out.println();
             System.out.println("Brücken");
-            System.out.println(logic.getBruecken());
+            ArrayList<int[]> bruecken = logic.getBruecken();
+            for (int[] bruecke : bruecken) {
+                for(int i = 0; i < bruecke.length; i++){
+                    if(i % 2 == 0)
+                        System.out.print(String.format("{%d, ", bruecke[i]));
+                    else
+                        System.out.println(String.format("%d}", bruecke[i]));
+                }
+            }
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }

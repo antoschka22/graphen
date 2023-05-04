@@ -1,4 +1,3 @@
-// C.S. 2023-02-17
 package org.example;
 import java.io.*;
 
@@ -6,7 +5,7 @@ public class Adjazenzmatrix{
     private int[][] matrix;
     private int knoten;
 
-    public Matrix(int[][] matrix) throws MatrixException {
+    public Adjazenzmatrix(int[][] matrix) throws MatrixException {
         if(matrix.length == matrix[0].length){
             this.matrix = matrix;
             this.knoten = matrix.length;
@@ -77,13 +76,13 @@ public class Adjazenzmatrix{
     }
 
     /* Matrizenmultiplikation */
-    public Matrix multiplicationMatrix(Matrix a, Matrix b) throws MatrixException {
+    public Adjazenzmatrix multiplicationMatrix(Adjazenzmatrix a, Adjazenzmatrix b) throws MatrixException {
         int[][] matrixA = a.getMatrix();
         int[][] matrixB = b.getMatrix();
         int rowsA = a.getKnoten();
         int columsA = a.getKnoten();
 
-        Matrix result = new Matrix(new int[rowsA][columsA]);
+        Adjazenzmatrix result = new Adjazenzmatrix(new int[rowsA][columsA]);
 
         for (int row = 0; row < rowsA; row++) {
             for (int col = 0; col < columsA; col++) {
@@ -98,9 +97,9 @@ public class Adjazenzmatrix{
     }
 
     /* Potenzmatrix */
-    public Matrix potenzMatrix(int hochzahl) throws MatrixException {
+    public Adjazenzmatrix potenzMatrix(int hochzahl) throws MatrixException {
 
-        Matrix matrix = new Matrix(getMatrix());
+        Adjazenzmatrix matrix = new Adjazenzmatrix(getMatrix());
 
         if(hochzahl < 0)
             throw new MatrixException("Ungültige Hochzahl");
@@ -108,7 +107,7 @@ public class Adjazenzmatrix{
         if(hochzahl < 2)
             return matrix;
 
-        Matrix pMatrix = matrix.copyForMatrix(false);
+        Adjazenzmatrix pMatrix = matrix.copyForMatrix(false);
 
         for(int i = 1; i < hochzahl;i++)
             pMatrix = multiplicationMatrix(pMatrix, matrix);
@@ -117,7 +116,7 @@ public class Adjazenzmatrix{
     }
 
     // Überprüfe Matrizen sind gleich
-    public boolean isMatrixEqual(Matrix matrix2){
+    public boolean isMatrixEqual(Adjazenzmatrix matrix2){
 
         // + row weil wir nur eine Hälfte überprüfen müssen
         for(int row = 0; row < knoten; row++){
@@ -130,8 +129,8 @@ public class Adjazenzmatrix{
         return true;
     }
     // Kopiert matrix (distanzmatrix mit Unendlich)
-    public Matrix copyForMatrix(boolean distancematrix) throws MatrixException {
-        Matrix result = new Matrix(new int[knoten][knoten]);
+    public Adjazenzmatrix copyForMatrix(boolean distancematrix) throws MatrixException {
+        Adjazenzmatrix result = new Adjazenzmatrix(new int[knoten][knoten]);
 
         for(int row = 0; row < knoten; row++){
             for(int col = 0; col < knoten; col++){
@@ -153,7 +152,7 @@ public class Adjazenzmatrix{
     }
 
     /* Matrix aus CSV-Datei auslesen */
-    public static Matrix readCsvMatrix(String filename) throws IOException, MatrixException {
+    public static Adjazenzmatrix readCsvMatrix(String filename) throws IOException, MatrixException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
 
         // Wie groß ist die Matrix
@@ -171,7 +170,7 @@ public class Adjazenzmatrix{
             throw new MatrixException("Keine Adjazenzmatrix");
 
         // Werte hinzufügen
-        Matrix matrix = new Matrix(new int[rowsAnzahl][columnsAnzahl]);
+        Adjazenzmatrix matrix = new Adjazenzmatrix(new int[rowsAnzahl][columnsAnzahl]);
         br = new BufferedReader(new FileReader(filename));
         int rowId = 0;
         while ((zeile = br.readLine()) != null) {

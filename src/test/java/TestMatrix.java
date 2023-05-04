@@ -1,20 +1,16 @@
 import org.example.Logic;
-import org.example.Matrix;
+import org.example.Adjazenzmatrix;
 import org.example.MatrixException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMatrix {
 
-    private Matrix matrix;
+    private Adjazenzmatrix matrix;
 
     @Test
     void instanceMatrix_shouldThrowExceptionNoAdjazenzmatrix() throws MatrixException {
@@ -25,7 +21,7 @@ public class TestMatrix {
 
         // When
         MatrixException exception = assertThrows(MatrixException.class,
-                () -> matrix = new Matrix(array));
+                () -> matrix = new Adjazenzmatrix(array));
 
         // Then
         assertEquals("Ungültige Matrix. Nur Adjazenzmatrizen werden angenommen.", exception.getMessage());
@@ -38,7 +34,7 @@ public class TestMatrix {
                             {1,0,0,1,0},
                             {1,1,1,0,0},
                             {0,1,0,0,0}};
-        matrix = new Matrix (matrix1);
+        matrix = new Adjazenzmatrix (matrix1);
 
         Logic distanzmatrix = new Logic(matrix);
 
@@ -58,7 +54,7 @@ public class TestMatrix {
                             {1,0,0,1,0},
                             {1,1,1,0,0},
                             {0,1,0,0,0}};
-        matrix = new Matrix (matrix1);
+        matrix = new Adjazenzmatrix (matrix1);
 
         Logic wegmatrix = new Logic(matrix);
 
@@ -76,7 +72,7 @@ public class TestMatrix {
                 {1,0,0,0,0},
                 {0,1,0,0,0}};
 
-        matrix = new Matrix(matrix2);
+        matrix = new Adjazenzmatrix(matrix2);
         Logic wegmatrix2 = new Logic(matrix);
 
         int[][] result2 = {{1,0,1,1,0},
@@ -99,12 +95,12 @@ public class TestMatrix {
                             {0,0,0,0,1,1,0,1},
                             {0,0,0,0,0,1,1,0}};
 
-        matrix = new Matrix(matrix1);
+        matrix = new Adjazenzmatrix(matrix1);
 
         Logic logic = new Logic(matrix);
-        int artikulationen = logic.getArtikulationen();
+        ArrayList<Integer> artikulationen = logic.getArtikulationen();
 
-        assertEquals(1, artikulationen);
+        assertEquals(1, artikulationen.size());
     }
 
     @Test
@@ -123,12 +119,12 @@ public class TestMatrix {
                             {0,0,0,0,0,0,0,0,0,1,1,0,1},
                             {0,0,0,0,0,0,0,0,0,0,0,1,0}};
 
-        matrix = new Matrix(matrix1);
+        matrix = new Adjazenzmatrix(matrix1);
 
         Logic logic = new Logic(matrix);
-        int bruecken = logic.getBruecken();
+        ArrayList<int[]> bruecken = logic.getBruecken();
 
-        assertEquals(5, bruecken);
+        assertEquals(5, bruecken.size());
     }
 
    @Test
@@ -156,12 +152,12 @@ public class TestMatrix {
                             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0}};
 
 
-        matrix = new Matrix(matrix1);
+        matrix = new Adjazenzmatrix(matrix1);
 
         Logic logic = new Logic(matrix);
 
         assertEquals(3,logic.getRadius());
-        assertEquals(2, logic.getZentrum());
+        assertEquals(2, logic.getZentrum().size());
         assertEquals(6, logic.getDurchmesser());
 
    }

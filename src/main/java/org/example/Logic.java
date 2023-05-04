@@ -1,28 +1,31 @@
 package org.example;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Logic {
 
-    private Matrix matrix;
-    private Matrix distanzMatrix;
-    private int[] exzentri;
-    private Matrix wegMatrix;
-    private ArrayList<int[]> komponente;
-    private int komponentenAnzahl;
-    private int durchmesser;
-    private int radius;
-    private int zentrum;
-    private int artikulationen;
-    private int bruecken;
+    private final Adjazenzmatrix matrix;
+    private final int knoten;
+    private final Adjazenzmatrix distanzMatrix;
+    private final HashMap<Integer, Integer> exzentri;
+    private final Adjazenzmatrix wegMatrix;
+    private final ArrayList<int[]> komponente;
+    private final int komponentenAnzahl;
+    private final int durchmesser;
+    private final int radius;
+    private final ArrayList<Integer> zentrum;
+    private final ArrayList<Integer> artikulationen;
+    private final ArrayList<int[]> bruecken;
 
 
-    public Logic (Matrix matrix) throws MatrixException {
+    public Logic (Adjazenzmatrix matrix) throws MatrixException {
         this.matrix = matrix;
-        this.distanzMatrix = new Matrix(calcDistanzMatrix());
-        this.wegMatrix = new Matrix(calcWegMatrix(matrix));
+        this.knoten = matrix.getKnoten();
+        this.distanzMatrix = new Adjazenzmatrix(calcDistanzMatrix());
+        this.wegMatrix = new Adjazenzmatrix(calcWegMatrix(matrix));
         this.exzentri = calcExzentrizitaet();
         this.komponente = calcKomponente(matrix);
         this.komponentenAnzahl = this.komponente.size();
@@ -33,13 +36,15 @@ public class Logic {
         this.bruecken = calcBruecken();
     }
 
-    public Matrix getMatrix(){ return matrix; }
+    public Adjazenzmatrix getMatrix(){ return matrix; }
 
-    public Matrix getDistanzMatrix() { return distanzMatrix; }
+    public int getKnoten() { return knoten; }
 
-    public int[] getExzentri() { return exzentri; }
+    public Adjazenzmatrix getDistanzMatrix() { return distanzMatrix; }
 
-    public Matrix getWegMatrix() { return wegMatrix; }
+    public HashMap<Integer, Integer> getExzentri() { return exzentri; }
+
+    public Adjazenzmatrix getWegMatrix() { return wegMatrix; }
 
     public ArrayList<int[]> getKomponente() { return komponente; }
 
@@ -49,31 +54,30 @@ public class Logic {
 
     public int getRadius() { return radius; }
 
-    public int getZentrum() { return zentrum; }
+    public ArrayList<Integer> getZentrum() { return zentrum; }
 
-    public int getArtikulationen() { return artikulationen; }
+    public ArrayList<Integer> getArtikulationen() { return artikulationen; }
 
-    public int getBruecken() { return bruecken; }
+    public ArrayList<int[]> getBruecken() { return bruecken; }
 
     private int[][] calcDistanzMatrix() throws MatrixException {
 
         //Initialisierung
-        int knoten = matrix.getKnoten();
-        Matrix distanzMatrix;
+        Adjazenzmatrix distanzMatrix;
         distanzMatrix = matrix.copyForMatrix(true);
         distanzMatrix.setDiagonale(0);
 
         int k = 2;
-        Matrix distanzKMinus2;
-        Matrix distanzKMinus1 = matrix.potenzMatrix(k-1);
+        Adjazenzmatrix distanzKMinus2;
+        Adjazenzmatrix distanzKMinus1 = matrix.potenzMatrix(k-1);
 
 
-        Matrix potenzMatrix = matrix;
+        Adjazenzmatrix potenzMatrix;
         do {
             potenzMatrix = matrix.potenzMatrix(k);
 
             for(int row = 0; row < knoten; row++){
-                for(int col = 0 + row; col < knoten; col++){
+                for(int col = 0; col < knoten; col++){
                     int poMatrValue = potenzMatrix.getValue(row, col);
                     int disMatrValue = distanzMatrix.getValue(row, col);
 
@@ -92,25 +96,24 @@ public class Logic {
         return distanzMatrix.getMatrix();
     }
 
-    private int[][] calcWegMatrix(Matrix inputMatrix) throws MatrixException {
+    private int[][] calcWegMatrix(Adjazenzmatrix inputMatrix) throws MatrixException {
 
         //Initialisierung
-        int knoten = inputMatrix.getKnoten();
-        Matrix wegMatrix;
+        Adjazenzmatrix wegMatrix;
         wegMatrix = inputMatrix.copyForMatrix(false);
         wegMatrix.setDiagonale(1);
 
         int k = 2;
-        Matrix wegKMinus2;
-        Matrix wegKMinus1 = inputMatrix.potenzMatrix(k-1);
+        Adjazenzmatrix wegKMinus2;
+        Adjazenzmatrix wegKMinus1 = inputMatrix.potenzMatrix(k-1);
 
 
-        Matrix potenzMatrix = inputMatrix;
+        Adjazenzmatrix potenzMatrix = inputMatrix;
         do {
             potenzMatrix = potenzMatrix.potenzMatrix(k);
 
             for(int row = 0; row < knoten; row++){
-                for(int col = 0 + row; col < knoten; col++){
+                for(int col = 0; col < knoten; col++){
                     int poMatrValue = potenzMatrix.getValue(row, col);
                     int wegMatrValue = wegMatrix.getValue(row, col);
 
@@ -129,24 +132,22 @@ public class Logic {
         return wegMatrix.getMatrix();
     }
 
-    private int[] calcExzentrizitaet(){
-        int knoten = distanzMatrix.getKnoten();
-        int[] result = new int[knoten];
-        int max = 0;
+    private HashMap<Integer, Integer> calcExzentrizitaet(){
+        HashMap<Integer, Integer> result = new HashMap<>();
 
         for(int row = 0; row < knoten; row++){
-            max = Arrays.stream(distanzMatrix.getRow(row)).max().getAsInt();
-            result[row] = max;
+            int max = Arrays.stream(distanzMatrix.getRow(row)).max().getAsInt();
+            result.put(row + 1, max);
         }
 
         return result;
     }
 
-    private ArrayList<int[]> calcKomponente(Matrix inputMatrix) throws MatrixException {
+    private ArrayList<int[]> calcKomponente(Adjazenzmatrix inputMatrix) throws MatrixException {
         int knoten = inputMatrix.getKnoten();
         ArrayList<int[]> komponente = new ArrayList<>();
         int[][] currWegMatrix = calcWegMatrix(inputMatrix);
-        Matrix newWegMatrix = new Matrix(currWegMatrix);
+        Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(currWegMatrix);
         komponente.add(newWegMatrix.getRow(0));
         int newLineFound = 0;
 
@@ -168,57 +169,66 @@ public class Logic {
     private int calcDurchmesser() throws MatrixException {
 
         if(komponentenAnzahl <= 0)
-            throw new MatrixException("Ungültige Anzahl");
+            throw new MatrixException("Ungültige Anzahl an Komponenten");
 
         if(komponentenAnzahl > 1)
             return Integer.MIN_VALUE;
 
-        return Arrays.stream(getExzentri()).max().getAsInt();
+        int dm = 0;
+        for (Integer current : getExzentri().values()){
+            if(current > dm)
+                dm = current;
+        }
+
+        return dm;
 
     }
 
     private int calcRadius() throws MatrixException {
 
         if(komponentenAnzahl <= 0)
-            throw new MatrixException("Ungültige Anzahl");
+            throw new MatrixException("Ungültige Anzahl an Komponenten");
 
         if(komponentenAnzahl > 1)
             return Integer.MIN_VALUE;
 
-        int min = Arrays.stream(getExzentri()).min().getAsInt();
+        int rad = Integer.MAX_VALUE;
+        for (Integer current : getExzentri().values()){
+            if(current < rad)
+                rad = current;
+        }
 
-        if(min > durchmesser)
+        if(rad > durchmesser)
             throw new MatrixException("Radius darf nicht größer als der Durchmesser sein");
 
-        return min;
+        return rad;
     }
 
-    private int calcZentrum() {
+    private ArrayList<Integer> calcZentrum() {
         if(komponentenAnzahl > 1)
-            return -1;
+            return new ArrayList<>();
 
-        int zentrum = 0;
-        int[] exzentritaet = getExzentri();
+        ArrayList<Integer> zentrum = new ArrayList();
+        HashMap<Integer, Integer> exzentritaet = getExzentri();
 
-        for(int i = 0; i < exzentritaet.length; i++){
-            if(exzentritaet[i] == getRadius())
-                zentrum++;
+        for (Map.Entry<Integer, Integer> current : exzentritaet.entrySet()) {
+            if(current.getValue() == radius)
+                zentrum.add(current.getKey());
         }
 
         return zentrum;
     }
 
-    private int calcArtikulationen() throws MatrixException {
-        int knoten = getDistanzMatrix().getKnoten();
-        int artikulationen = 0;
-        Matrix testMatrix = matrix.copyForMatrix(false);
+    private ArrayList<Integer> calcArtikulationen() throws MatrixException {
+        ArrayList<Integer> artikulationen = new ArrayList<>();
+        Adjazenzmatrix testMatrix = matrix.copyForMatrix(false);
 
         for(int row = 0; row < knoten; row++){
 
             int grad = getDistanzMatrix().getKnotengrad(row);
 
             if(grad == 1 || grad == 0)
-                break;
+                continue;
 
             // entferne einen Knoten
             for(int i = 0; i < knoten; i++){
@@ -226,11 +236,12 @@ public class Logic {
                 testMatrix.setValue(i, row, 0);
             }
 
+            //berechne Wegmatrix neu
             int[][] testWegMatrix = calcWegMatrix(testMatrix);
-            Matrix newWegMatrix = new Matrix(testWegMatrix);
+            Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(testWegMatrix);
             int testSize = calcKomponente(newWegMatrix).size() - 1;
             if(testSize > getKomponentenAnzahl())
-                artikulationen++;
+                artikulationen.add(row + 1);
 
             testMatrix = matrix.copyForMatrix(false);
         }
@@ -238,23 +249,22 @@ public class Logic {
         return artikulationen;
     }
 
-    private int calcBruecken() throws MatrixException {
-        int knoten = getDistanzMatrix().getKnoten();
-        int bruecken = 0;
-        Matrix testMatrix = matrix.copyForMatrix(false);
+    private ArrayList<int[]> calcBruecken() throws MatrixException {
+        ArrayList<int[]> bruecken = new ArrayList<>();
+        Adjazenzmatrix testMatrix = matrix.copyForMatrix(false);
 
         for(int row = 0; row < knoten; row++){
-            // entferne einen Knoten
-            for(int i = 0 + row; i < knoten; i++){
-                if(testMatrix.getValue(row, i) != 0){
-                    testMatrix.setValue(row, i, 0);
-                    testMatrix.setValue(i, row, 0);
+            // entferne eine Kante
+            for(int col = 0 + row; col < knoten; col++){
+                if(testMatrix.getValue(row, col) != 0){
+                    testMatrix.setValue(row, col, 0);
+                    testMatrix.setValue(col, row, 0);
 
                     int[][] testWegMatrix = calcWegMatrix(testMatrix);
-                    Matrix newWegMatrix = new Matrix(testWegMatrix);
+                    Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(testWegMatrix);
                     int testSize = calcKomponente(newWegMatrix).size();
                     if(testSize > getKomponentenAnzahl())
-                        bruecken++;
+                        bruecken.add(new int[]{row + 1, col + 1});
 
                     testMatrix = matrix.copyForMatrix(false);
                 }
