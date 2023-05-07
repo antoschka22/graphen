@@ -1,5 +1,6 @@
 package org.example;
 import java.io.*;
+import java.util.ArrayList;
 
 public class Adjazenzmatrix{
     private int[][] matrix;
@@ -48,6 +49,26 @@ public class Adjazenzmatrix{
         return grad;
     }
 
+    public ArrayList<Integer> getUnevenKnotengrad(){
+         ArrayList<Integer> result = new ArrayList<>();
+
+        for(int row = 0; row < knoten; row++){
+            int[] kanten = getRow(row);
+            int sum = 0;
+
+            for(int kante = 0; kante < kanten.length; kante++){
+                if(kanten[kante] == 1)
+                    sum++;
+            }
+
+            if(sum % 2 != 0)
+                result.add(row);
+
+        }
+
+        return result;
+    }
+
     public void setValue(int row, int col, int value){
         matrix[row][col] = value;
         matrix[col][row] = value;
@@ -59,11 +80,6 @@ public class Adjazenzmatrix{
                 matrix[row][col] = value;
             }
         }
-    }
-
-    public void setValueOnPosition(int row, int col, int value){
-        this.matrix[row][col] = value;
-        this.matrix[col][row] = value;
     }
 
     public void setDiagonale(int value){
@@ -128,6 +144,7 @@ public class Adjazenzmatrix{
 
         return true;
     }
+
     // Kopiert matrix (distanzmatrix mit Unendlich)
     public Adjazenzmatrix copyForMatrix(boolean distancematrix) throws MatrixException {
         Adjazenzmatrix result = new Adjazenzmatrix(new int[knoten][knoten]);
@@ -191,7 +208,7 @@ public class Adjazenzmatrix{
 
         for (int  row = 0; row < knoten; row++) {
             for (int col = 0; col < knoten-1; col++)
-                System.out.print(matrix[row][col] + ";");
+                System.out.print(matrix[row][col] + "  ");
             System.out.println(matrix[row][knoten-1]);
         }
         System.out.println();

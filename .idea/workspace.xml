@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13455654-40d6-40bb-96fe-3ca3a058f02a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Adjazenzmatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Adjazenzmatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Adjazenzmatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/matrix.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMatrix.java" afterDir="false" />
@@ -69,31 +70,31 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMatrix.calcArtikulation_PDF_06_Seite_6" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMatrix.calcDistanzMatrix_shouldReturnDistanzmatrix" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="graphen" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestMatrix" />
-      <option name="METHOD_NAME" value="calcArtikulation_PDF_06_Seite_6" />
+      <option name="METHOD_NAME" value="calcDistanzMatrix_shouldReturnDistanzmatrix" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMatrix.calcBruecken_PDF_06_Seite_11" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMatrix.calcEulerLinie_shoulReturnLinie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="graphen" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestMatrix" />
-      <option name="METHOD_NAME" value="calcBruecken_PDF_06_Seite_11" />
+      <option name="METHOD_NAME" value="calcEulerLinie_shoulReturnLinie" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMatrix.calcZentrum_calcRadius_calcDurchmesser_BSP_5_1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMatrix.calcEulerZyklus_PDF_04_Seite_12" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="graphen" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestMatrix" />
-      <option name="METHOD_NAME" value="calcZentrum_calcRadius_calcDurchmesser_BSP_5_1" />
+      <option name="METHOD_NAME" value="calcEulerZyklus_PDF_04_Seite_12" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -102,10 +103,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test" />
+        <item itemvalue="JUnit.TestMatrix.calcEulerLinie_shoulReturnLinie" />
         <item itemvalue="JUnit.TestMatrix" />
-        <item itemvalue="JUnit.TestMatrix.calcZentrum_calcRadius_calcDurchmesser_BSP_5_1" />
-        <item itemvalue="JUnit.TestMatrix.calcArtikulation_PDF_06_Seite_6" />
-        <item itemvalue="JUnit.TestMatrix.calcBruecken_PDF_06_Seite_11" />
+        <item itemvalue="JUnit.TestMatrix.calcEulerZyklus_PDF_04_Seite_12" />
+        <item itemvalue="JUnit.TestMatrix.calcDistanzMatrix_shouldReturnDistanzmatrix" />
       </list>
     </recent_temporary>
   </component>

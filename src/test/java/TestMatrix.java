@@ -13,7 +13,7 @@ public class TestMatrix {
     private Adjazenzmatrix matrix;
 
     @Test
-    void instanceMatrix_shouldThrowExceptionNoAdjazenzmatrix() throws MatrixException {
+    void instanceMatrix_shouldThrowExceptionNoAdjazenzmatrix() {
         //Given
         int[][] array = {
                 {1},{1, 3}
@@ -162,5 +162,91 @@ public class TestMatrix {
 
    }
 
+   @Test
+    void calcEverything_graphenWebsiteBSP() throws MatrixException {
+        int[][] matrix1 = {{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+                            {1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0}};
+
+        Adjazenzmatrix matrix = new Adjazenzmatrix(matrix1);
+
+        Logic logic = new Logic(matrix);
+
+        assertEquals(1, logic.getKomponentenAnzahl());
+        assertEquals(9, logic.getDurchmesser());
+        assertEquals(5, logic.getRadius());
+        assertEquals(3, logic.getZentrum().size());
+        assertEquals(10, logic.getArtikulationen().size());
+        assertEquals(4, logic.getBruecken().size());
+    }
+
+    @Test
+    void calcEulerZyklus_PDF_04_Seite_12() throws MatrixException {
+        int[][] matrix1 = {{0,1,1,0,0,0,0,0,0},
+                            {1,0,0,1,0,0,0,0,0},
+                            {1,0,0,1,1,0,1,0,0},
+                            {0,1,1,0,1,1,0,0,0},
+                            {0,0,1,1,0,0,1,1,0},
+                            {0,0,0,1,0,0,0,1,0},
+                            {0,0,1,0,1,0,0,1,1},
+                            {0,0,0,0,1,1,1,0,1},
+                            {0,0,0,0,0,0,1,1,0}};
+
+        matrix = new Adjazenzmatrix(matrix1);
+        Logic logic = new Logic(matrix);
+        int[] zyklus = new int[logic.getZyklus().size()];
+
+        for(int i = 0; i < logic.getZyklus().size(); i++)
+            zyklus[i] = logic.getZyklus().get(i);
+
+        int[] supposedResult = {1, 3, 7, 9, 8, 7, 5, 8, 6, 4, 5, 3, 4, 2, 1};
+
+        assertEquals(15, logic.getZyklus().size());
+        assertArrayEquals(supposedResult, zyklus);
+    }
+
+    @Test
+    void calcEulerLinie_shoulReturnLinie() throws MatrixException {
+        int[][] matrix1 = {{0,1,1,1,0},
+                            {1,0,1,0,1},
+                            {1,1,0,0,0},
+                            {1,0,0,0,1},
+                            {0,1,0,1,0}};
+
+        matrix = new Adjazenzmatrix(matrix1);
+        Logic logic = new Logic(matrix);
+
+        int[] linie = new int[logic.getEulerLinie().size()];
+
+        for(int i = 0; i < logic.getEulerLinie().size(); i++)
+            linie[i] = logic.getEulerLinie().get(i);
+
+        int[] supposedResult = {2, 5, 4, 1, 3, 2, 1};
+
+        assertEquals(7, logic.getEulerLinie().size());
+        assertArrayEquals(supposedResult, linie);
+
+    }
 
 }

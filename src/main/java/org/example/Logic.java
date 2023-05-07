@@ -1,9 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import javax.print.attribute.IntegerSyntax;
+import java.util.*;
 
 public class Logic {
 
@@ -19,6 +17,8 @@ public class Logic {
     private final ArrayList<Integer> zentrum;
     private final ArrayList<Integer> artikulationen;
     private final ArrayList<int[]> bruecken;
+    private final ArrayList<Integer> zyklus;
+    private final ArrayList<Integer> eulerLinie;
 
 
     public Logic (Adjazenzmatrix matrix) throws MatrixException {
@@ -34,6 +34,8 @@ public class Logic {
         this.zentrum = calcZentrum();
         this.artikulationen = calcArtikulationen();
         this.bruecken = calcBruecken();
+        this.zyklus = calcEulerzyklus();
+        this.eulerLinie = calcEulerLinie();
     }
 
     public Adjazenzmatrix getMatrix(){ return matrix; }
@@ -54,11 +56,15 @@ public class Logic {
 
     public int getRadius() { return radius; }
 
+    public ArrayList<Integer> getEulerLinie() { return eulerLinie; }
+
     public ArrayList<Integer> getZentrum() { return zentrum; }
 
     public ArrayList<Integer> getArtikulationen() { return artikulationen; }
 
     public ArrayList<int[]> getBruecken() { return bruecken; }
+
+    public ArrayList<Integer> getZyklus() { return zyklus; }
 
     private int[][] calcDistanzMatrix() throws MatrixException {
 
@@ -273,6 +279,59 @@ public class Logic {
         }
 
         return bruecken;
+    }
+
+    private ArrayList<Integer> calcEulerzyklus() throws MatrixException {
+        if(matrix.getUnevenKnotengrad().size() > 0)
+            return new ArrayList<>();
+
+        Adjazenzmatrix testMatrix;
+        testMatrix = matrix.copyForMatrix(false);
+
+        return eulerDFS(testMatrix, 0);
+    }
+
+    public ArrayList<Integer> calcEulerLinie() throws MatrixException {
+
+        ArrayList<Integer> unevenKnontengrad = matrix.getUnevenKnotengrad();
+
+        if(unevenKnontengrad.size() != 2)
+            return new ArrayList<>();
+
+        int start = unevenKnontengrad.get(0);
+
+        Adjazenzmatrix testMatrix;
+        testMatrix = matrix.copyForMatrix(false);
+
+        return eulerDFS(testMatrix, start);
+    }
+
+    private ArrayList<Integer> eulerDFS(Adjazenzmatrix testMatrix, int startKnoten) {
+        Stack<Integer> stack = new Stack<>();
+        ArrayList<Integer> result = new ArrayList<>();
+
+        stack.push(startKnoten);
+        while (!stack.isEmpty()) {
+            int knoten = stack.peek();
+
+            if (testMatrix.getKnotengrad(knoten) == 0) {
+                // Knoten hat keine Kante mehr
+                result.add(stack.pop() + 1);
+            } else {
+                int[] row = testMatrix.getRow(knoten);
+                for(int i = 0; i < row.length; i++){
+                    if(row[i] == 1){
+                        // Kante entfernen und nächster Knoten zum stack
+                        stack.push(i);
+                        testMatrix.setValue(knoten, i, 0);
+                        testMatrix.setValue(i, knoten, 0);
+                        break;
+                    }
+                }
+
+            }
+        }
+        return result;
     }
 
 }

@@ -65,6 +65,16 @@ public class Test {
                         System.out.println(String.format("%d}", bruecke[i]));
                 }
             }
+
+            System.out.println();
+            System.out.println("Zyklus");
+            System.out.println(logic.getZyklus());
+            System.out.println(logic.getZyklus().size());
+
+            System.out.println();
+            System.out.println("Eulerlinie");
+            System.out.println(logic.calcEulerLinie());
+            System.out.println(logic.calcEulerLinie().size());
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }

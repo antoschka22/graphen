@@ -1,2 +1,4 @@
-package org.example.matrix;public class Matrix {
+package org.example.matrix;
+
+public class Matrix {
 }
