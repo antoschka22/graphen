@@ -1,52 +1,15 @@
 package org.example;
+import org.example.matrix.Matrix;
+
 import java.io.*;
 import java.util.ArrayList;
 
-public class Adjazenzmatrix{
-    private int[][] matrix;
-    private int knoten;
+public class Adjazenzmatrix extends Matrix {
+
+    int knoten = super.getKnoten();
 
     public Adjazenzmatrix(int[][] matrix) throws MatrixException {
-        if(matrix.length == matrix[0].length){
-            this.matrix = matrix;
-            this.knoten = matrix.length;
-        }else
-            throw new MatrixException("Ungültige Matrix. Nur Adjazenzmatrizen werden angenommen.");
-
-    }
-
-    public int[][] getMatrix() {
-        return matrix;
-    }
-
-    public int getKnoten(){
-        return knoten;
-    }
-
-    public int getValue(int row, int col){
-        return matrix[row][col];
-    }
-
-    public int[] getRow(int row){
-        int[] newRow = new int[getKnoten()];
-
-        for(int i = 0; i < knoten; i++){
-            newRow[i] = getValue(row, i);
-        }
-
-        return newRow;
-    }
-
-    public int getKnotengrad(int inputKnoten){
-        int grad = 0;
-        int[] row = getRow(inputKnoten);
-
-        for(int i = 0; i < knoten; i++){
-            if(row[i] == 1)
-                grad++;
-        }
-
-        return grad;
+        super(matrix);
     }
 
     public ArrayList<Integer> getUnevenKnotengrad(){
@@ -67,19 +30,6 @@ public class Adjazenzmatrix{
         }
 
         return result;
-    }
-
-    public void setValue(int row, int col, int value){
-        matrix[row][col] = value;
-        matrix[col][row] = value;
-    }
-
-    public void setMatrixToValue(int value){
-        for (int row = 0; row < this.knoten; row++) {
-            for(int col = 0; col < this.knoten; col++){
-                matrix[row][col] = value;
-            }
-        }
     }
 
     public void setDiagonale(int value){
@@ -208,10 +158,20 @@ public class Adjazenzmatrix{
 
         for (int  row = 0; row < knoten; row++) {
             for (int col = 0; col < knoten-1; col++)
-                System.out.print(matrix[row][col] + "  ");
-            System.out.println(matrix[row][knoten-1]);
+                System.out.print(getMatrix()[row][col] + "  ");
+            System.out.println(getMatrix()[row][knoten-1]);
         }
         System.out.println();
+    }
+
+    public boolean isMatrixAdjazent(int[][] matrix){
+        for (int  row = 0; row < knoten; row++) {
+            for (int col = 0; col < knoten; col++){
+                if(matrix[row][col] != 0 && matrix[row][col] != 1)
+                    return false;
+            }
+        }
+        return true;
     }
 }
 
