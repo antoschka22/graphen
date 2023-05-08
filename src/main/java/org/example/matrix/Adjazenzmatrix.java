@@ -1,5 +1,5 @@
-package org.example;
-import org.example.matrix.Matrix;
+package org.example.matrix;
+import org.example.MatrixException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -96,6 +96,7 @@ public class Adjazenzmatrix extends Matrix {
     }
 
     // Kopiert matrix (distanzmatrix mit Unendlich)
+    @Override
     public Adjazenzmatrix copyForMatrix(boolean distancematrix) throws MatrixException {
         Adjazenzmatrix result = new Adjazenzmatrix(new int[knoten][knoten]);
 
@@ -153,25 +154,16 @@ public class Adjazenzmatrix extends Matrix {
         return matrix;
     }
 
-    /* Matrix ausgeben */
-    public void printMatrix() {
+    public ArrayList<Integer> isMatrixAdjazent(int[][] matrix){
+        ArrayList<Integer> result = new ArrayList<>();
 
-        for (int  row = 0; row < knoten; row++) {
-            for (int col = 0; col < knoten-1; col++)
-                System.out.print(getMatrix()[row][col] + "  ");
-            System.out.println(getMatrix()[row][knoten-1]);
-        }
-        System.out.println();
-    }
-
-    public boolean isMatrixAdjazent(int[][] matrix){
         for (int  row = 0; row < knoten; row++) {
             for (int col = 0; col < knoten; col++){
                 if(matrix[row][col] != 0 && matrix[row][col] != 1)
-                    return false;
+                    result.add(row);
             }
         }
-        return true;
+        return result;
     }
 }
 

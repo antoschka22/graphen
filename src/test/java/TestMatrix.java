@@ -1,5 +1,5 @@
 import org.example.Logic;
-import org.example.Adjazenzmatrix;
+import org.example.matrix.Adjazenzmatrix;
 import org.example.MatrixException;
 import org.junit.jupiter.api.Test;
 

@@ -6,10 +6,11 @@
 - [x] Radius, Durchmesser, Zentrum
 - [x] Komponenten, Artikulationen, Brücken
 - [ ] Benutzeroberfläche (GUI), Eingabe per Maus
-- [ ] Eulersche Linien/Zyklen
+- [x] Eulersche Linien/Zyklen
 - [ ] Spannbäume/Gerüste
 - [ ] Starke Zusammenhangskomponente
 - [ ] Blöcke (schwierig!)
+- [ ] Test auf Isomorphie
 
 
 Abgabegespräch auf Basis von Programmcode ohne Kommentare

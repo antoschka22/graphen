@@ -1,6 +1,7 @@
 package org.example;
 
-import javax.print.attribute.IntegerSyntax;
+import org.example.matrix.Adjazenzmatrix;
+
 import java.util.*;
 
 public class Logic {
@@ -19,7 +20,6 @@ public class Logic {
     private final ArrayList<int[]> bruecken;
     private final ArrayList<Integer> zyklus;
     private final ArrayList<Integer> eulerLinie;
-
 
     public Logic (Adjazenzmatrix matrix) throws MatrixException {
         this.matrix = matrix;
@@ -291,7 +291,7 @@ public class Logic {
         return eulerDFS(testMatrix, 0);
     }
 
-    public ArrayList<Integer> calcEulerLinie() throws MatrixException {
+    private ArrayList<Integer> calcEulerLinie() throws MatrixException {
 
         ArrayList<Integer> unevenKnontengrad = matrix.getUnevenKnotengrad();
 
@@ -307,22 +307,22 @@ public class Logic {
     }
 
     private ArrayList<Integer> eulerDFS(Adjazenzmatrix testMatrix, int startKnoten) {
-        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> dsfStack = new Stack<>();
         ArrayList<Integer> result = new ArrayList<>();
 
-        stack.push(startKnoten);
-        while (!stack.isEmpty()) {
-            int knoten = stack.peek();
+        dsfStack.push(startKnoten);
+        while (!dsfStack.isEmpty()) {
+            int knoten = dsfStack.peek();
 
             if (testMatrix.getKnotengrad(knoten) == 0) {
                 // Knoten hat keine Kante mehr
-                result.add(stack.pop() + 1);
+                result.add(dsfStack.pop() + 1);
             } else {
                 int[] row = testMatrix.getRow(knoten);
                 for(int i = 0; i < row.length; i++){
                     if(row[i] == 1){
                         // Kante entfernen und nächster Knoten zum stack
-                        stack.push(i);
+                        dsfStack.push(i);
                         testMatrix.setValue(knoten, i, 0);
                         testMatrix.setValue(i, knoten, 0);
                         break;
