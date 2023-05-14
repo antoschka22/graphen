@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="13455654-40d6-40bb-96fe-3ca3a058f02a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/matrix.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,9 +104,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Test" />
+        <item itemvalue="JUnit.TestMatrix" />
         <item itemvalue="Application.test2" />
         <item itemvalue="Application.GerichteteMatrix" />
-        <item itemvalue="JUnit.TestMatrix" />
         <item itemvalue="JUnit.TestMatrix.calcEulerLinie_shoulReturnLinie" />
       </list>
     </recent_temporary>

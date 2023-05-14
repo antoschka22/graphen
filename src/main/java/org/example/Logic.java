@@ -241,17 +241,7 @@ public class Logic {
             if(grad == 1 || grad == 0)
                 continue;
 
-            // entferne einen Knoten
-            for(int i = 0; i < knoten; i++){
-                testMatrix.setValue(row, i, 0);
-                testMatrix.setValue(i, row, 0);
-            }
-
-            //berechne Wegmatrix neu
-            int[][] testWegMatrix = calcWegMatrix(testMatrix);
-            Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(testWegMatrix);
-            int testSize = calcKomponente(newWegMatrix).size() - 1;
-            if(testSize > getKomponentenAnzahl())
+            if(isKnotenArtikulation(row, testMatrix))
                 artikulationen.add(row + 1);
 
             testMatrix = matrix.copyForMatrix(false);
@@ -341,7 +331,7 @@ public class Logic {
 
     public ArrayList<ArrayList<Integer>> calcBloecke(Adjazenzmatrix inputMatrix) throws MatrixException {
         if(komponentenAnzahl > 1)
-            throw new MatrixException("Nur zusammengesetze Graphen");
+            return new ArrayList<>();
 
         int[] besuchteKnoten = new int[knoten];
         ArrayList<ArrayList<Integer>> blocks = new ArrayList<>();
@@ -350,6 +340,20 @@ public class Logic {
                 ArrayList<Integer> block = new ArrayList<>();
                 bloeckeBFS(i, block, besuchteKnoten, inputMatrix);
                 blocks.add(block);
+            }
+        }
+
+        // Brücken aus Artikulationen Ausnahme
+        for(int[] bruecke : getBruecken()){
+            for(Integer arti1 : getArtikulationen()){
+                for(Integer arti2 : getArtikulationen()){
+                    if((arti1 == bruecke[0] && arti2 == bruecke[1])){
+                        ArrayList<Integer> resultBloecke = new ArrayList<>();
+                        resultBloecke.add(arti1);
+                        resultBloecke.add(arti2);
+                        blocks.add(resultBloecke);
+                    }
+                }
             }
         }
 
