@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.matrix.Adjazenzmatrix;
-import org.example.matrix.GerichteteMatrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ public class Test {
         try {
 
             System.out.println();
-            Adjazenzmatrix matrix = new Adjazenzmatrix(Adjazenzmatrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
+            Adjazenzmatrix matrix = new Adjazenzmatrix(Adjazenzmatrix.readCsvMatrix("/Users/antoniomolina/Downloads/24n_01.csv").getMatrix());
             Logic logic = new Logic(matrix);
             logic.getMatrix().printMatrix();
 
@@ -80,6 +79,11 @@ public class Test {
             System.out.println("Eulerlinie");
             System.out.println(logic.getEulerLinie());
             System.out.println(logic.getEulerLinie().size());
+
+            System.out.println();
+            System.out.println("Blöcke");
+            System.out.println(logic.calcBloecke(matrix));
+            System.out.println(logic.calcBloecke(matrix).size());
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }

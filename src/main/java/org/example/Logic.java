@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.matrix.Adjazenzmatrix;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Logic {
@@ -20,6 +21,7 @@ public class Logic {
     private final ArrayList<int[]> bruecken;
     private final ArrayList<Integer> zyklus;
     private final ArrayList<Integer> eulerLinie;
+    private final ArrayList<ArrayList<Integer>> bloecke;
 
     public Logic (Adjazenzmatrix matrix) throws MatrixException {
         this.matrix = matrix;
@@ -36,6 +38,7 @@ public class Logic {
         this.bruecken = calcBruecken();
         this.zyklus = calcEulerzyklus();
         this.eulerLinie = calcEulerLinie();
+        this.bloecke = calcBloecke(matrix);
     }
 
     public Adjazenzmatrix getMatrix(){ return matrix; }
@@ -55,6 +58,8 @@ public class Logic {
     public int getDurchmesser() { return durchmesser; }
 
     public int getRadius() { return radius; }
+
+    public ArrayList<ArrayList<Integer>> getBloecke() { return bloecke; }
 
     public ArrayList<Integer> getEulerLinie() { return eulerLinie; }
 
@@ -334,4 +339,63 @@ public class Logic {
         return result;
     }
 
+    public ArrayList<ArrayList<Integer>> calcBloecke(Adjazenzmatrix inputMatrix) throws MatrixException {
+        if(komponentenAnzahl > 1)
+            throw new MatrixException("Nur zusammengesetze Graphen");
+
+        int[] besuchteKnoten = new int[knoten];
+        ArrayList<ArrayList<Integer>> blocks = new ArrayList<>();
+        for (int i = 0; i < inputMatrix.getKnoten(); i++) {
+            if (besuchteKnoten[i] == 0 && !isKnotenArtikulation(i, inputMatrix.copyForMatrix(false))) {
+                ArrayList<Integer> block = new ArrayList<>();
+                bloeckeBFS(i, block, besuchteKnoten, inputMatrix);
+                blocks.add(block);
+            }
+        }
+
+
+        return blocks;
+    }
+
+    private void bloeckeBFS(int startKnoten, ArrayList<Integer> block, int[] besuchteKnoten, Adjazenzmatrix inputMatrix) throws MatrixException {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(startKnoten);
+        besuchteKnoten[startKnoten] = 1;
+
+        while (!queue.isEmpty()) {
+            Adjazenzmatrix testMatrix = inputMatrix.copyForMatrix(false);
+            int currKnoten = queue.poll();
+
+            if(isKnotenArtikulation(currKnoten, testMatrix)){
+                besuchteKnoten[currKnoten] = 0;
+                if(!block.contains(currKnoten))
+                    block.add(currKnoten);
+                continue;
+            }
+
+
+            block.add(currKnoten);
+            for (int i = 0; i < testMatrix.getKnoten(); i++) {
+                if (inputMatrix.getMatrix()[currKnoten][i] == 1 && besuchteKnoten[i] == 0) {
+                    besuchteKnoten[i] = 1;
+                    queue.add(i);
+                }
+            }
+        }
+    }
+
+    private boolean isKnotenArtikulation(int inputKnoten, Adjazenzmatrix testMatrix) throws MatrixException {
+        for(int i = 0; i < knoten; i++){
+            testMatrix.setValue(inputKnoten, i, 0);
+            testMatrix.setValue(i, inputKnoten, 0);
+        }
+
+        int[][] testWegMatrix = calcWegMatrix(testMatrix);
+        Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(testWegMatrix);
+        int testSize = calcKomponente(newWegMatrix).size() - 1;
+        if(testSize > getKomponentenAnzahl())
+            return true;
+
+        return false;
+    }
 }

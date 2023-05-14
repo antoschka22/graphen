@@ -2,6 +2,9 @@ package org.example.matrix;
 
 import org.example.MatrixException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public abstract class Matrix {
 
     private int[][] matrix;

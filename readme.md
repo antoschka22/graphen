@@ -8,7 +8,7 @@
 - [ ] Benutzeroberfläche (GUI), Eingabe per Maus
 - [x] Eulersche Linien/Zyklen
 - [ ] Spannbäume/Gerüste
-- [ ] Starke Zusammenhangskomponente
+- [x] Starke Zusammenhangskomponente
 - [ ] Blöcke (schwierig!)
 - [ ] Test auf Isomorphie
 

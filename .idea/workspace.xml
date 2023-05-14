@@ -5,16 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13455654-40d6-40bb-96fe-3ca3a058f02a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/test2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Adjazenzmatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/Adjazenzmatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TestMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/matrix.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +47,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.test2">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="GerichteteMatrix" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.matrix.GerichteteMatrix" />
       <module name="graphen" />
@@ -111,8 +108,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.test2" />
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.test2" />
         <item itemvalue="Application.GerichteteMatrix" />
         <item itemvalue="JUnit.TestMatrix" />
         <item itemvalue="JUnit.TestMatrix.calcEulerLinie_shoulReturnLinie" />
@@ -143,5 +140,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/graphen$Test.ic" NAME="Test Coverage Results" MODIFIED="1684060201810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.matrix.*</FILTER>
+    </SUITE>
   </component>
 </project>

@@ -9,8 +9,6 @@ public class GerichteteMatrix extends Matrix{
 
     private int knoten = super.getKnoten();
     private int[][] transponierteMatrix;
-    Matrix testMatrix = super.copyForMatrix(false);
-
 
     public GerichteteMatrix(int[][] matrix) throws MatrixException {
         super(matrix);
@@ -36,20 +34,21 @@ public class GerichteteMatrix extends Matrix{
     public ArrayList<ArrayList<Integer>> calcStarkeZusammenhangskomponente() throws MatrixException {
         // Aufruf von DFS(G) -> TF(v)
         // TF Reihenfolge bekommen in einem Stack
-        boolean[] besuchteKnoten = new boolean[knoten];
+        int[] besuchteKnoten = new int[knoten];
         Stack<Integer> TFReihenfolge = new Stack<>();
+
         for (int i = 0; i < knoten; i++) {
-            if (!besuchteKnoten[i]) {
+            if (besuchteKnoten[i] == 0)
                 dfs(i, besuchteKnoten, TFReihenfolge, null, super.getMatrix(), true);
-            }
+
         }
 
         // DFS von der tranponierten Matrix in der Reihenfolge von Schritt eins
-        besuchteKnoten = new boolean[knoten];
+        besuchteKnoten = new int[knoten];
         ArrayList<ArrayList<Integer>> starkeKomponente = new ArrayList<>();
         while (!TFReihenfolge.isEmpty()) {
             int knoten = TFReihenfolge.pop();
-            if (!besuchteKnoten[knoten]) {
+            if (besuchteKnoten[knoten] == 0) {
                 ArrayList<Integer> komponent = new ArrayList<>();
                 dfs(knoten, besuchteKnoten, TFReihenfolge, komponent, transponierteMatrix, false);
                 starkeKomponente.add(komponent);
@@ -59,19 +58,19 @@ public class GerichteteMatrix extends Matrix{
         return starkeKomponente;
     }
 
-    private static void dfs(int knoten, boolean[] besuchteKnoten, Stack<Integer> TFStack, ArrayList<Integer> zusammenhangskomponente, int[][] matrix, boolean tfReihenfolge) {
-        besuchteKnoten[knoten] = true;
+    private static void dfs(int knoten, int[] besuchteKnoten, Stack<Integer> TFStack, ArrayList<Integer> zusammenhangskomponente, int[][] matrix, boolean tfReihenfolge) {
+        besuchteKnoten[knoten] = 1;
         if (tfReihenfolge) {
             for (int i = 0; i < matrix.length; i++) {
-                if (matrix[knoten][i] == 1 && !besuchteKnoten[i]) {
+                if (matrix[knoten][i] == 1 && besuchteKnoten[i] == 0)
                     dfs(i, besuchteKnoten, TFStack, zusammenhangskomponente, matrix, true);
-                }
+
             }
             TFStack.push(knoten);
         } else {
             zusammenhangskomponente.add(knoten+1);
             for (int i = 0; i < matrix.length; i++) {
-                if (matrix[knoten][i] == 1 && !besuchteKnoten[i]) {
+                if (matrix[knoten][i] == 1 && besuchteKnoten[i] == 0) {
                     dfs(i, besuchteKnoten, null, zusammenhangskomponente, matrix, false);
                 }
             }
