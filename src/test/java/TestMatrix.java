@@ -1,10 +1,13 @@
 import org.example.Logic;
 import org.example.matrix.Adjazenzmatrix;
 import org.example.MatrixException;
+import org.example.matrix.GerichteteMatrix;
 import org.junit.jupiter.api.Test;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -280,7 +283,49 @@ public class TestMatrix {
 
         Logic logic = new Logic(matrix);
 
-        logi
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>(Arrays.asList(1, 2)));
+        result.add(new ArrayList<>(Arrays.asList(2, 3, 4, 5)));
+        result.add(new ArrayList<>(Arrays.asList(5, 6, 7)));
+        result.add(new ArrayList<>(Arrays.asList(5, 8, 9)));
+        result.add(new ArrayList<>(Arrays.asList(8, 10, 11)));
+        result.add(new ArrayList<>(Arrays.asList(12, 13)));
+        result.add(new ArrayList<>(Arrays.asList(15, 18, 19)));
+        result.add(new ArrayList<>(Arrays.asList(17, 20, 21)));
+        result.add(new ArrayList<>(Arrays.asList(22, 23, 24)));
+        result.add(new ArrayList<>(Arrays.asList(11, 14, 15, 16, 17)));
+        result.add(new ArrayList<>(Arrays.asList(7, 12)));
+        result.add(new ArrayList<>(Arrays.asList(21, 22)));
+
+        assertEquals(result, logic.getBloecke());
+
+    }
+
+    @Test
+    void calcStarkeZusammenhangskomponente_PDF_11() throws MatrixException {
+        int[][] matrix1 = {{0,0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0},
+                {1,1,0,0,0,0,0,0,0,0,0},
+                {0,0,1,0,0,0,0,0,0,0,0},
+                {0,0,0,1,0,0,0,0,0,0,0},
+                {1,0,0,0,0,0,0,1,0,0,1},
+                {0,1,0,0,1,1,0,0,0,0,0},
+                {0,0,0,0,0,0,1,0,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0},
+                {0,0,0,0,0,0,0,1,0,0,0},
+                {0,0,0,0,0,0,0,0,1,1,0}};
+
+        GerichteteMatrix matrix2 = new GerichteteMatrix(matrix1);
+
+        GerichteteMatrix reverseMatrix = new GerichteteMatrix(matrix2.getTransponierteMatrix());
+
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>(Arrays.asList(6, 7, 8, 9, 11, 10)));
+        result.add(new ArrayList<>(List.of(5)));
+        result.add(new ArrayList<>(Arrays.asList(2, 3, 4)));
+        result.add(new ArrayList<>(List.of(1)));
+
+        assertEquals(result, matrix2.calcStarkeZusammenhangskomponente());
     }
 
 }

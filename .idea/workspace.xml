@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13455654-40d6-40bb-96fe-3ca3a058f02a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GewichteteMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/Adjazenzmatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/Adjazenzmatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMatrix.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,20 +48,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Test">
-    <configuration name="GerichteteMatrix" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.matrix.GerichteteMatrix" />
-      <module name="graphen" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.matrix.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.TestMatrix">
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Test" />
       <module name="graphen" />
@@ -92,11 +84,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMatrix.calcEverything_graphenWebsiteBSP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMatrix.calcBloecke_graphenWebsiteBSP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="graphen" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestMatrix" />
-      <option name="METHOD_NAME" value="calcEverything_graphenWebsiteBSP" />
+      <option name="METHOD_NAME" value="calcBloecke_graphenWebsiteBSP" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMatrix.calcStarkeZusammenhangskomponente_PDF_11" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="graphen" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMatrix" />
+      <option name="METHOD_NAME" value="calcStarkeZusammenhangskomponente_PDF_11" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -104,11 +106,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.TestMatrix" />
-        <item itemvalue="JUnit.TestMatrix.calcEverything_graphenWebsiteBSP" />
+        <item itemvalue="JUnit.TestMatrix.calcStarkeZusammenhangskomponente_PDF_11" />
         <item itemvalue="Application.test2" />
-        <item itemvalue="Application.GerichteteMatrix" />
+        <item itemvalue="JUnit.TestMatrix.calcBloecke_graphenWebsiteBSP" />
+        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -136,17 +138,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Test.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/graphen$Test.ic" NAME="Test Coverage Results" MODIFIED="1684060201810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

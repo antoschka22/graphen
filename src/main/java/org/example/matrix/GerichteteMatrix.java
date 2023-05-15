@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class GerichteteMatrix extends Matrix{
 
-    private int knoten = super.getKnoten();
+    private int knoten = getKnoten();
     private int[][] transponierteMatrix;
 
     public GerichteteMatrix(int[][] matrix) throws MatrixException {
@@ -18,7 +18,7 @@ public class GerichteteMatrix extends Matrix{
     public int[][] getTransponierteMatrix() { return transponierteMatrix; }
 
     private int[][] matrixTransponieren(){
-        int[][] matrix = super.getMatrix();
+        int[][] matrix = getMatrix();
         int[][] result = new int[knoten][knoten];
 
         for(int row = 0; row < knoten; row++){

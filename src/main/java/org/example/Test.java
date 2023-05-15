@@ -82,8 +82,8 @@ public class Test {
 
             System.out.println();
             System.out.println("Blöcke");
-            System.out.println(logic.calcBloecke(matrix));
-            System.out.println(logic.calcBloecke(matrix).size());
+            System.out.println(logic.getBloecke());
+            System.out.println(logic.getBloecke().size());
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }

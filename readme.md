@@ -9,7 +9,7 @@
 - [x] Eulersche Linien/Zyklen
 - [ ] Spannbäume/Gerüste
 - [x] Starke Zusammenhangskomponente
-- [ ] Blöcke (schwierig!)
+- [x] Blöcke (schwierig!)
 - [ ] Test auf Isomorphie
 
 

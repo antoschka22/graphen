@@ -86,7 +86,7 @@ public class Adjazenzmatrix extends Matrix {
 
         // + row weil wir nur eine Hälfte überprüfen müssen
         for(int row = 0; row < knoten; row++){
-            for(int col = 0 + row; col < knoten; col++){
+            for(int col = row; col < knoten; col++){
                 if(getValue(row, col) != matrix2.getValue(row, col))
                     return false;
             }

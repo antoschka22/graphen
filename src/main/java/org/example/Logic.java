@@ -346,7 +346,7 @@ public class Logic {
         return result;
     }
 
-    public ArrayList<ArrayList<Integer>> calcBloecke(Adjazenzmatrix inputMatrix) throws MatrixException {
+    private ArrayList<ArrayList<Integer>> calcBloecke(Adjazenzmatrix inputMatrix) throws MatrixException {
         if(komponentenAnzahl > 1)
             return new ArrayList<>();
 
@@ -415,7 +415,7 @@ public class Logic {
         }
     }
 
-    //
+    //2 Phase. Blöcke mergen und berechnen ob eins ohne Artikulation gemerged werden kann
     private ArrayList<ArrayList<Integer>> mergeBloecke(ArrayList<ArrayList<Integer>> bloecke, Adjazenzmatrix inputMatrix) throws MatrixException {
         for(int i = 0; i < bloecke.size(); i++){
             for(int j = 1 + i; j < bloecke.size();j++){
@@ -454,7 +454,7 @@ public class Logic {
     }
 
     // Erstelle aus einer ArrayList eine Adjazenzmatrix
-    public int[][] createMatrixFromArrayList(ArrayList<Integer> list, Adjazenzmatrix inputMatrix){
+    private int[][] createMatrixFromArrayList(ArrayList<Integer> list, Adjazenzmatrix inputMatrix){
         int[][] result = new int[list.size()][list.size()];
 
         for(int i = 0; i < list.size(); i++){
