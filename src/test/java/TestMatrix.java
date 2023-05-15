@@ -24,7 +24,7 @@ public class TestMatrix {
                 () -> matrix = new Adjazenzmatrix(array));
 
         // Then
-        assertEquals("Ungültige Matrix. Nur Adjazenzmatrizen werden angenommen.", exception.getMessage());
+        assertEquals("Ungültige Matrix. Nur symmetrische Matrizen werden angenommen.", exception.getMessage());
     }
 
     @Test

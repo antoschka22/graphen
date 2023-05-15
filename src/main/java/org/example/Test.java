@@ -12,7 +12,7 @@ public class Test {
         try {
 
             System.out.println();
-            Adjazenzmatrix matrix = new Adjazenzmatrix(Adjazenzmatrix.readCsvMatrix("/Users/antoniomolina/Downloads/24n_01.csv").getMatrix());
+            Adjazenzmatrix matrix = new Adjazenzmatrix(Adjazenzmatrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
             Logic logic = new Logic(matrix);
             logic.getMatrix().printMatrix();
 
