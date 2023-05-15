@@ -361,6 +361,15 @@ public class Logic {
             }
         }
 
+        mergeBloecke(blocks, inputMatrix);
+
+        for(ArrayList<Integer> block: blocks){
+            for (int i = 0; i < block.size(); i++) {
+                int value = block.get(i) + 1;
+                block.set(i, value);
+            }
+        }
+
         // Brücken aus Artikulationen Ausnahme
         for(int[] bruecke : getBruecken()){
             for(Integer arti1 : getArtikulationen()){
@@ -376,13 +385,6 @@ public class Logic {
             }
         }
 
-
-        ArrayList<ArrayList<Integer>> mergedBloecke = mergeBloecke(blocks, inputMatrix);
-
-        for(ArrayList<Integer> mergedBlock : mergedBloecke){
-            if(!blocks.contains(mergedBlock))
-                blocks.add(mergedBlock);
-        }
         return blocks;
     }
 
@@ -413,15 +415,14 @@ public class Logic {
         }
     }
 
+    //
     private ArrayList<ArrayList<Integer>> mergeBloecke(ArrayList<ArrayList<Integer>> bloecke, Adjazenzmatrix inputMatrix) throws MatrixException {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-
         for(int i = 0; i < bloecke.size(); i++){
             for(int j = 1 + i; j < bloecke.size();j++){
-                //Ohne Duplikate
-                Set<Integer> set = new HashSet<>(bloecke.get(i));
-                set.addAll(bloecke.get(j));
-                ArrayList<Integer> mergeBlock = new ArrayList<>(set);
+                //zwei Blöcke ohne Duplikate
+                Set<Integer> mergeBloecke = new HashSet<>(bloecke.get(i));
+                mergeBloecke.addAll(bloecke.get(j));
+                ArrayList<Integer> mergeBlock = new ArrayList<>(mergeBloecke);
                 Collections.sort(mergeBlock);
 
 
@@ -437,18 +438,22 @@ public class Logic {
                 if(artiAnzahl.size() > 0)
                     continue;
 
-                result.add(mergeBlock);
-                bloecke.remove(i);
-                System.out.println(bloecke.get(i));
-                System.out.println(bloecke.get(j));
+
+                if(!bloecke.contains(mergeBlock)){
+                    bloecke.add(mergeBlock);
+                    bloecke.remove(j);
+                    bloecke.remove(i);
+                }
+
             }
 
         }
 
 
-        return result;
+        return bloecke;
     }
 
+    // Erstelle aus einer ArrayList eine Adjazenzmatrix
     public int[][] createMatrixFromArrayList(ArrayList<Integer> list, Adjazenzmatrix inputMatrix){
         int[][] result = new int[list.size()][list.size()];
 

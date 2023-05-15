@@ -7,8 +7,6 @@
     <list default="true" id="13455654-40d6-40bb-96fe-3ca3a058f02a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/matrix.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMatrix.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,11 +92,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestMatrix.calcEulerLinie_shoulReturnLinie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestMatrix.calcEverything_graphenWebsiteBSP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="graphen" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestMatrix" />
-      <option name="METHOD_NAME" value="calcEulerLinie_shoulReturnLinie" />
+      <option name="METHOD_NAME" value="calcEverything_graphenWebsiteBSP" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -108,9 +106,9 @@
       <list>
         <item itemvalue="Application.Test" />
         <item itemvalue="JUnit.TestMatrix" />
+        <item itemvalue="JUnit.TestMatrix.calcEverything_graphenWebsiteBSP" />
         <item itemvalue="Application.test2" />
         <item itemvalue="Application.GerichteteMatrix" />
-        <item itemvalue="JUnit.TestMatrix.calcEulerLinie_shoulReturnLinie" />
       </list>
     </recent_temporary>
   </component>
@@ -146,11 +144,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/org/example/Test.java</url>
           <line>67</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Logic.java</url>
-          <line>454</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
