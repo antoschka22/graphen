@@ -1,14 +1,13 @@
 package org.example.matrix;
 
-import org.example.MatrixException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+public class Matrix {
 
-public abstract class Matrix {
-
-    private int[][] matrix;
-    private int knoten;
+    private final int[][] matrix;
+    private final int knoten;
 
     public Matrix(int[][] matrix) throws MatrixException {
         if(matrix.length == matrix[0].length){
@@ -48,11 +47,10 @@ public abstract class Matrix {
 
     public void setValue(int row, int col, int value){
         matrix[row][col] = value;
-        matrix[col][row] = value;
     }
 
     public Matrix copyForMatrix(boolean distancematrix) throws MatrixException {
-        Adjazenzmatrix result = new Adjazenzmatrix(new int[knoten][knoten]);
+        AdjazenzMatrix result = new AdjazenzMatrix(new int[knoten][knoten]);
 
         for(int row = 0; row < knoten; row++){
             for(int col = 0; col < knoten; col++){
@@ -64,6 +62,40 @@ public abstract class Matrix {
             }
 
         return result;
+    }
+
+    /* Matrix aus CSV-Datei auslesen */
+    public static Matrix readCsvMatrix(String filename) throws IOException, MatrixException {
+        BufferedReader br = new BufferedReader(new FileReader(filename));
+
+        // Wie groß ist die Matrix
+        String zeile;
+        int rowsAnzahl = 0;
+        int columnsAnzahl = 0;
+        while ((zeile= br.readLine()) != null) {
+            rowsAnzahl++;
+            String[] row = zeile.split(";");
+            columnsAnzahl = row.length;
+        }
+        br.close();
+
+        if(rowsAnzahl != columnsAnzahl)
+            throw new MatrixException("Keine Adjazenzmatrix");
+
+        // Werte hinzufügen
+        Matrix matrix = new Matrix(new int[rowsAnzahl][columnsAnzahl]);
+        br = new BufferedReader(new FileReader(filename));
+        int rowValue = 0;
+        while ((zeile = br.readLine()) != null) {
+            String[] row = zeile.split(";");
+            for (int colValue = 0; colValue < columnsAnzahl; colValue++) {
+                matrix.setValue(rowValue, colValue, Integer.parseInt(row[colValue]));
+            }
+            rowValue++;
+        }
+        br.close();
+
+        return matrix;
     }
 
     public void printMatrix() {

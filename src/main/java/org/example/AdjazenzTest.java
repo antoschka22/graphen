@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Test {
+public class AdjazenzTest {
 
     public static void main(String[] args) {
         try {
@@ -14,6 +14,7 @@ public class Test {
             System.out.println();
             AdjazenzMatrix matrix = new AdjazenzMatrix(AdjazenzMatrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
             Logic logic = new Logic(matrix);
+            System.out.println("Input");
             logic.getMatrix().printMatrix();
 
             System.out.println("Distanzmatrix");
@@ -32,7 +33,7 @@ public class Test {
             AdjazenzMatrix wegMatrix = new AdjazenzMatrix(logic.getWegMatrix().getMatrix());
             wegMatrix.printMatrix();
 
-            System.out.println("Komponente");
+            System.out.println(String.format("Komponente (%d)", logic.getKomponentenAnzahl()));
             ArrayList<int[]> komponente = logic.getKomponente();
             for(int[] komponent : komponente){
                 for(int i = 0; i < komponent.length; i++){
@@ -40,7 +41,6 @@ public class Test {
                 }
                 System.out.println();
             }
-            System.out.println("Anzahl: "+logic.getKomponentenAnzahl());
 
             System.out.println();
             System.out.println("Durchmesser");
@@ -71,19 +71,16 @@ public class Test {
             }
 
             System.out.println();
-            System.out.println("Zyklus");
+            System.out.println(String.format("Zyklus (%d)", logic.getZyklus().size()));
             System.out.println(logic.getZyklus());
-            System.out.println(logic.getZyklus().size());
 
             System.out.println();
-            System.out.println("Eulerlinie");
+            System.out.println(String.format("Eulerlinie (%d)", logic.getEulerLinie().size()));
             System.out.println(logic.getEulerLinie());
-            System.out.println(logic.getEulerLinie().size());
 
             System.out.println();
-            System.out.println("Blöcke");
+            System.out.println(String.format("Blöcke (%d)", logic.getBloecke().size()));
             System.out.println(logic.getBloecke());
-            System.out.println(logic.getBloecke().size());
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }

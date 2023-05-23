@@ -2,7 +2,7 @@ package org.example;
 
 import org.example.matrix.GewichteteMatrix;
 
-public class test3 {
+public class GewichteteMatrixTest {
 
     public static void main(String[] args) {
         try {

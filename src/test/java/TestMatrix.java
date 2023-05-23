@@ -1,6 +1,6 @@
 import org.example.Logic;
-import org.example.matrix.Adjazenzmatrix;
-import org.example.MatrixException;
+import org.example.matrix.AdjazenzMatrix;
+import org.example.matrix.MatrixException;
 import org.example.matrix.GerichteteMatrix;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMatrix {
 
-    private Adjazenzmatrix matrix;
+    private AdjazenzMatrix matrix;
 
     @Test
     void instanceMatrix_shouldThrowExceptionNoAdjazenzmatrix() {
@@ -24,7 +24,7 @@ public class TestMatrix {
 
         // When
         MatrixException exception = assertThrows(MatrixException.class,
-                () -> matrix = new Adjazenzmatrix(array));
+                () -> matrix = new AdjazenzMatrix(array));
 
         // Then
         assertEquals("Ungültige Matrix. Nur symmetrische Matrizen werden angenommen.", exception.getMessage());
@@ -37,7 +37,7 @@ public class TestMatrix {
                             {1,0,0,1,0},
                             {1,1,1,0,0},
                             {0,1,0,0,0}};
-        matrix = new Adjazenzmatrix (matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
 
         Logic distanzmatrix = new Logic(matrix);
 
@@ -57,7 +57,7 @@ public class TestMatrix {
                             {1,0,0,1,0},
                             {1,1,1,0,0},
                             {0,1,0,0,0}};
-        matrix = new Adjazenzmatrix (matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
 
         Logic wegmatrix = new Logic(matrix);
 
@@ -75,7 +75,7 @@ public class TestMatrix {
                 {1,0,0,0,0},
                 {0,1,0,0,0}};
 
-        matrix = new Adjazenzmatrix(matrix2);
+        matrix = new AdjazenzMatrix(matrix2);
         Logic wegmatrix2 = new Logic(matrix);
 
         int[][] result2 = {{1,0,1,1,0},
@@ -98,7 +98,7 @@ public class TestMatrix {
                             {0,0,0,0,1,1,0,1},
                             {0,0,0,0,0,1,1,0}};
 
-        matrix = new Adjazenzmatrix(matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
 
         Logic logic = new Logic(matrix);
         ArrayList<Integer> artikulationen = logic.getArtikulationen();
@@ -122,7 +122,7 @@ public class TestMatrix {
                             {0,0,0,0,0,0,0,0,0,1,1,0,1},
                             {0,0,0,0,0,0,0,0,0,0,0,1,0}};
 
-        matrix = new Adjazenzmatrix(matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
 
         Logic logic = new Logic(matrix);
         ArrayList<int[]> bruecken = logic.getBruecken();
@@ -155,7 +155,7 @@ public class TestMatrix {
                             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0}};
 
 
-        matrix = new Adjazenzmatrix(matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
 
         Logic logic = new Logic(matrix);
 
@@ -192,7 +192,7 @@ public class TestMatrix {
                             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
                             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0}};
 
-        Adjazenzmatrix matrix = new Adjazenzmatrix(matrix1);
+        AdjazenzMatrix matrix = new AdjazenzMatrix(matrix1);
 
         Logic logic = new Logic(matrix);
 
@@ -216,7 +216,7 @@ public class TestMatrix {
                             {0,0,0,0,1,1,1,0,1},
                             {0,0,0,0,0,0,1,1,0}};
 
-        matrix = new Adjazenzmatrix(matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
         Logic logic = new Logic(matrix);
         int[] zyklus = new int[logic.getZyklus().size()];
 
@@ -237,7 +237,7 @@ public class TestMatrix {
                             {1,0,0,0,1},
                             {0,1,0,1,0}};
 
-        matrix = new Adjazenzmatrix(matrix1);
+        matrix = new AdjazenzMatrix(matrix1);
         Logic logic = new Logic(matrix);
 
         int[] linie = new int[logic.getEulerLinie().size()];
@@ -279,7 +279,7 @@ public class TestMatrix {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0}};
 
-        Adjazenzmatrix matrix = new Adjazenzmatrix(matrix1);
+        AdjazenzMatrix matrix = new AdjazenzMatrix(matrix1);
 
         Logic logic = new Logic(matrix);
 
@@ -299,6 +299,57 @@ public class TestMatrix {
 
         assertEquals(result, logic.getBloecke());
 
+    }
+
+    @Test
+    void calcBloecke_BSP_6_3() throws MatrixException {
+
+        int[][] matrix1 = {{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,1,0,0,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,1,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0},
+                            {0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,0},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
+                            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0}};
+
+
+        AdjazenzMatrix matrix = new AdjazenzMatrix(matrix1);
+
+        Logic logic = new Logic(matrix);
+
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>(Arrays.asList(1, 2)));
+        result.add(new ArrayList<>(Arrays.asList(2, 3, 6, 8, 10, 19)));
+        result.add(new ArrayList<>(Arrays.asList(4)));
+        result.add(new ArrayList<>(Arrays.asList(5, 6, 7, 9)));
+        result.add(new ArrayList<>(Arrays.asList(12, 13, 15)));
+        result.add(new ArrayList<>(Arrays.asList(13, 14, 17, 18)));
+        result.add(new ArrayList<>(Arrays.asList(11, 16)));
+        result.add(new ArrayList<>(Arrays.asList(11, 20)));
+        result.add(new ArrayList<>(Arrays.asList(15, 21, 22, 23)));
+        result.add(new ArrayList<>(Arrays.asList(24, 25, 26)));
+        result.add(new ArrayList<>(Arrays.asList(23, 24)));
+
+        assertEquals(result, logic.getBloecke());
     }
 
     @Test

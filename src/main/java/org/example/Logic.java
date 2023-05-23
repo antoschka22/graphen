@@ -1,17 +1,17 @@
 package org.example;
 
-import org.example.matrix.Adjazenzmatrix;
+import org.example.matrix.AdjazenzMatrix;
+import org.example.matrix.MatrixException;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Logic {
 
-    private final Adjazenzmatrix matrix;
+    private final AdjazenzMatrix matrix;
     private final int knoten;
-    private final Adjazenzmatrix distanzMatrix;
+    private final AdjazenzMatrix distanzMatrix;
     private final HashMap<Integer, Integer> exzentri;
-    private final Adjazenzmatrix wegMatrix;
+    private final AdjazenzMatrix wegMatrix;
     private final ArrayList<int[]> komponente;
     private final int komponentenAnzahl;
     private final int durchmesser;
@@ -23,11 +23,11 @@ public class Logic {
     private final ArrayList<Integer> eulerLinie;
     private final ArrayList<ArrayList<Integer>> bloecke;
 
-    public Logic (Adjazenzmatrix matrix) throws MatrixException {
+    public Logic (AdjazenzMatrix matrix) throws MatrixException {
         this.matrix = matrix;
         this.knoten = matrix.getKnoten();
-        this.distanzMatrix = new Adjazenzmatrix(calcDistanzMatrix());
-        this.wegMatrix = new Adjazenzmatrix(calcWegMatrix(matrix));
+        this.distanzMatrix = new AdjazenzMatrix(calcDistanzMatrix());
+        this.wegMatrix = new AdjazenzMatrix(calcWegMatrix(matrix));
         this.exzentri = calcExzentrizitaet();
         this.komponente = calcKomponente(matrix);
         this.komponentenAnzahl = this.komponente.size();
@@ -41,15 +41,13 @@ public class Logic {
         this.bloecke = calcBloecke(matrix);
     }
 
-    public Adjazenzmatrix getMatrix(){ return matrix; }
+    public AdjazenzMatrix getMatrix(){ return matrix; }
 
-    public int getKnoten() { return knoten; }
-
-    public Adjazenzmatrix getDistanzMatrix() { return distanzMatrix; }
+    public AdjazenzMatrix getDistanzMatrix() { return distanzMatrix; }
 
     public HashMap<Integer, Integer> getExzentri() { return exzentri; }
 
-    public Adjazenzmatrix getWegMatrix() { return wegMatrix; }
+    public AdjazenzMatrix getWegMatrix() { return wegMatrix; }
 
     public ArrayList<int[]> getKomponente() { return komponente; }
 
@@ -74,16 +72,16 @@ public class Logic {
     private int[][] calcDistanzMatrix() throws MatrixException {
 
         //Initialisierung
-        Adjazenzmatrix distanzMatrix;
+        AdjazenzMatrix distanzMatrix;
         distanzMatrix = matrix.copyForMatrix(true);
         distanzMatrix.setDiagonale(0);
 
         int k = 2;
-        Adjazenzmatrix distanzKMinus2;
-        Adjazenzmatrix distanzKMinus1 = matrix.potenzMatrix(k-1);
+        AdjazenzMatrix distanzKMinus2;
+        AdjazenzMatrix distanzKMinus1 = matrix.potenzMatrix(k-1);
 
 
-        Adjazenzmatrix potenzMatrix;
+        AdjazenzMatrix potenzMatrix;
         do {
             potenzMatrix = matrix.potenzMatrix(k);
 
@@ -107,19 +105,19 @@ public class Logic {
         return distanzMatrix.getMatrix();
     }
 
-    private int[][] calcWegMatrix(Adjazenzmatrix inputMatrix) throws MatrixException {
+    private int[][] calcWegMatrix(AdjazenzMatrix inputMatrix) throws MatrixException {
 
         //Initialisierung
-        Adjazenzmatrix wegMatrix;
+        AdjazenzMatrix wegMatrix;
         wegMatrix = inputMatrix.copyForMatrix(false);
         wegMatrix.setDiagonale(1);
 
         int k = 2;
-        Adjazenzmatrix wegKMinus2;
-        Adjazenzmatrix wegKMinus1 = inputMatrix.potenzMatrix(k-1);
+        AdjazenzMatrix wegKMinus2;
+        AdjazenzMatrix wegKMinus1 = inputMatrix.potenzMatrix(k-1);
 
 
-        Adjazenzmatrix potenzMatrix = inputMatrix;
+        AdjazenzMatrix potenzMatrix = inputMatrix;
         int knoten = inputMatrix.getKnoten();
         do {
             potenzMatrix = potenzMatrix.potenzMatrix(k);
@@ -155,11 +153,11 @@ public class Logic {
         return result;
     }
 
-    private ArrayList<int[]> calcKomponente(Adjazenzmatrix inputMatrix) throws MatrixException {
+    private ArrayList<int[]> calcKomponente(AdjazenzMatrix inputMatrix) throws MatrixException {
         int knoten = inputMatrix.getKnoten();
         ArrayList<int[]> komponente = new ArrayList<>();
         int[][] currWegMatrix = calcWegMatrix(inputMatrix);
-        Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(currWegMatrix);
+        AdjazenzMatrix newWegMatrix = new AdjazenzMatrix(currWegMatrix);
         komponente.add(newWegMatrix.getRow(0));
         int newLineFound = 0;
 
@@ -220,7 +218,7 @@ public class Logic {
         if(komponentenAnzahl > 1)
             return new ArrayList<>();
 
-        ArrayList<Integer> zentrum = new ArrayList();
+        ArrayList<Integer> zentrum = new ArrayList<>();
         HashMap<Integer, Integer> exzentritaet = getExzentri();
 
         for (Map.Entry<Integer, Integer> current : exzentritaet.entrySet()) {
@@ -231,9 +229,9 @@ public class Logic {
         return zentrum;
     }
 
-    private ArrayList<Integer> calcArtikulationen(Adjazenzmatrix inputMatrix) throws MatrixException {
+    private ArrayList<Integer> calcArtikulationen(AdjazenzMatrix inputMatrix) throws MatrixException {
         ArrayList<Integer> artikulationen = new ArrayList<>();
-        Adjazenzmatrix testMatrix = inputMatrix.copyForMatrix(false);
+        AdjazenzMatrix testMatrix = inputMatrix.copyForMatrix(false);
 
         for(int row = 0; row < inputMatrix.getKnoten(); row++){
 
@@ -251,35 +249,34 @@ public class Logic {
         return artikulationen;
     }
 
-    private boolean isKnotenArtikulation(int inputKnoten, Adjazenzmatrix inputMatrix) throws MatrixException {
+    private boolean isKnotenArtikulation(int inputKnoten, AdjazenzMatrix inputMatrix) throws MatrixException {
+        int komponente = calcKomponente(inputMatrix).size();
+
         for(int i = 0; i < inputMatrix.getKnoten(); i++){
             inputMatrix.setValue(inputKnoten, i, 0);
             inputMatrix.setValue(i, inputKnoten, 0);
         }
 
         int[][] testWegMatrix = calcWegMatrix(inputMatrix);
-        Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(testWegMatrix);
+        AdjazenzMatrix newWegMatrix = new AdjazenzMatrix(testWegMatrix);
         int testSize = calcKomponente(newWegMatrix).size() - 1;
-        if(testSize > getKomponentenAnzahl())
-            return true;
-
-        return false;
+        return testSize > komponente;
     }
 
-    private ArrayList<int[]> calcBruecken(Adjazenzmatrix inputMatrix) throws MatrixException {
+    private ArrayList<int[]> calcBruecken(AdjazenzMatrix inputMatrix) throws MatrixException {
         ArrayList<int[]> bruecken = new ArrayList<>();
-        Adjazenzmatrix testMatrix = inputMatrix.copyForMatrix(false);
+        AdjazenzMatrix testMatrix = inputMatrix.copyForMatrix(false);
         int knoten = inputMatrix.getKnoten();
 
         for(int row = 0; row < knoten; row++){
             // entferne eine Kante
-            for(int col = 0 + row; col < knoten; col++){
+            for(int col = row; col < knoten; col++){
                 if(testMatrix.getValue(row, col) != 0){
                     testMatrix.setValue(row, col, 0);
                     testMatrix.setValue(col, row, 0);
 
                     int[][] testWegMatrix = calcWegMatrix(testMatrix);
-                    Adjazenzmatrix newWegMatrix = new Adjazenzmatrix(testWegMatrix);
+                    AdjazenzMatrix newWegMatrix = new AdjazenzMatrix(testWegMatrix);
                     int testSize = calcKomponente(newWegMatrix).size();
                     if(testSize > getKomponentenAnzahl())
                         bruecken.add(new int[]{row + 1, col + 1});
@@ -297,7 +294,7 @@ public class Logic {
         if(matrix.getUnevenKnotengrad().size() > 0)
             return new ArrayList<>();
 
-        Adjazenzmatrix testMatrix;
+        AdjazenzMatrix testMatrix;
         testMatrix = matrix.copyForMatrix(false);
 
         return eulerDFS(testMatrix, 0);
@@ -312,13 +309,13 @@ public class Logic {
 
         int start = unevenKnontengrad.get(0);
 
-        Adjazenzmatrix testMatrix;
+        AdjazenzMatrix testMatrix;
         testMatrix = matrix.copyForMatrix(false);
 
         return eulerDFS(testMatrix, start);
     }
 
-    private ArrayList<Integer> eulerDFS(Adjazenzmatrix testMatrix, int startKnoten) {
+    private ArrayList<Integer> eulerDFS(AdjazenzMatrix testMatrix, int startKnoten) {
         Stack<Integer> dsfStack = new Stack<>();
         ArrayList<Integer> result = new ArrayList<>();
 
@@ -346,9 +343,7 @@ public class Logic {
         return result;
     }
 
-    private ArrayList<ArrayList<Integer>> calcBloecke(Adjazenzmatrix inputMatrix) throws MatrixException {
-        if(komponentenAnzahl > 1)
-            return new ArrayList<>();
+    private ArrayList<ArrayList<Integer>> calcBloecke(AdjazenzMatrix inputMatrix) throws MatrixException {
 
         int[] besuchteKnoten = new int[knoten];
         ArrayList<ArrayList<Integer>> blocks = new ArrayList<>();
@@ -363,8 +358,9 @@ public class Logic {
 
         mergeBloecke(blocks, inputMatrix);
 
+        //Array index + 1
         for(ArrayList<Integer> block: blocks){
-            for (int i = 0; i < block.size(); i++) {
+            for(int i = 0; i < block.size(); i++) {
                 int value = block.get(i) + 1;
                 block.set(i, value);
             }
@@ -388,13 +384,13 @@ public class Logic {
         return blocks;
     }
 
-    private void bloeckeBFS(int startKnoten, ArrayList<Integer> block, int[] besuchteKnoten, Adjazenzmatrix inputMatrix) throws MatrixException {
+    private void bloeckeBFS(int startKnoten, ArrayList<Integer> block, int[] besuchteKnoten, AdjazenzMatrix inputMatrix) throws MatrixException {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(startKnoten);
         besuchteKnoten[startKnoten] = 1;
 
         while (!queue.isEmpty()) {
-            Adjazenzmatrix testMatrix = inputMatrix.copyForMatrix(false);
+            AdjazenzMatrix testMatrix = inputMatrix.copyForMatrix(false);
             int currKnoten = queue.poll();
 
             if(isKnotenArtikulation(currKnoten, testMatrix)){
@@ -416,7 +412,7 @@ public class Logic {
     }
 
     //2 Phase. Blöcke mergen und berechnen ob eins ohne Artikulation gemerged werden kann
-    private ArrayList<ArrayList<Integer>> mergeBloecke(ArrayList<ArrayList<Integer>> bloecke, Adjazenzmatrix inputMatrix) throws MatrixException {
+    private ArrayList<ArrayList<Integer>> mergeBloecke(ArrayList<ArrayList<Integer>> bloecke, AdjazenzMatrix inputMatrix) throws MatrixException {
         for(int i = 0; i < bloecke.size(); i++){
             for(int j = 1 + i; j < bloecke.size();j++){
                 //zwei Blöcke ohne Duplikate
@@ -426,8 +422,8 @@ public class Logic {
                 Collections.sort(mergeBlock);
 
 
-                Adjazenzmatrix testMatrix = new Adjazenzmatrix(createMatrixFromArrayList(mergeBlock, inputMatrix));
-                Adjazenzmatrix testWegmatrix = new Adjazenzmatrix(calcWegMatrix(testMatrix));
+                AdjazenzMatrix testMatrix = new AdjazenzMatrix(createMatrixFromArrayList(mergeBlock, inputMatrix));
+                AdjazenzMatrix testWegmatrix = new AdjazenzMatrix(calcWegMatrix(testMatrix));
                 ArrayList<int[]> testKomponente = calcKomponente(testWegmatrix);
 
                 if(testKomponente.size() > 1)
@@ -454,7 +450,7 @@ public class Logic {
     }
 
     // Erstelle aus einer ArrayList eine Adjazenzmatrix
-    private int[][] createMatrixFromArrayList(ArrayList<Integer> list, Adjazenzmatrix inputMatrix){
+    private int[][] createMatrixFromArrayList(ArrayList<Integer> list, AdjazenzMatrix inputMatrix){
         int[][] result = new int[list.size()][list.size()];
 
         for(int i = 0; i < list.size(); i++){

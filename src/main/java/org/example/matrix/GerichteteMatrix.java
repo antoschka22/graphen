@@ -1,7 +1,5 @@
 package org.example.matrix;
 
-import org.example.MatrixException;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
