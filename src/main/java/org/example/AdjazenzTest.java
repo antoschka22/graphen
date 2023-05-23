@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.matrix.Adjazenzmatrix;
+import org.example.matrix.AdjazenzMatrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,12 +12,12 @@ public class Test {
         try {
 
             System.out.println();
-            Adjazenzmatrix matrix = new Adjazenzmatrix(Adjazenzmatrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
+            AdjazenzMatrix matrix = new AdjazenzMatrix(AdjazenzMatrix.readCsvMatrix("/Users/antoniomolina/Spenger/4BAIF/theorie-pos/graphen/src/matrix.csv").getMatrix());
             Logic logic = new Logic(matrix);
             logic.getMatrix().printMatrix();
 
             System.out.println("Distanzmatrix");
-            Adjazenzmatrix distanzMatrix = new Adjazenzmatrix(logic.getDistanzMatrix().getMatrix());
+            AdjazenzMatrix distanzMatrix = new AdjazenzMatrix(logic.getDistanzMatrix().getMatrix());
             distanzMatrix.printMatrix();
 
             System.out.println("Exzentrität");
@@ -29,7 +29,7 @@ public class Test {
             System.out.println();
 
             System.out.println("Wegmatrix");
-            Adjazenzmatrix wegMatrix = new Adjazenzmatrix(logic.getWegMatrix().getMatrix());
+            AdjazenzMatrix wegMatrix = new AdjazenzMatrix(logic.getWegMatrix().getMatrix());
             wegMatrix.printMatrix();
 
             System.out.println("Komponente");

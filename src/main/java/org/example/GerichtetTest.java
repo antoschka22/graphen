@@ -1,9 +1,7 @@
 package org.example;
 
 import org.example.matrix.GerichteteMatrix;
-
-import java.util.ArrayList;
-import java.util.Stack;
+import org.example.matrix.MatrixException;
 
 public class test2 {
 
