@@ -40,7 +40,11 @@ public class Logic {
         this.zyklus = calcEulerzyklus();
         this.eulerLinie = calcEulerLinie();
         this.bloecke = calcBloecke(matrix);
-        this.spannbaume = calcSpannbaume();
+        try {
+            this.spannbaume = calcSpannbaume();
+        } catch (Exception ignored){
+
+        }
     }
 
     public AdjazenzMatrix getMatrix(){ return matrix; }

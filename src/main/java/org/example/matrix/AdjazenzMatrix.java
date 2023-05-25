@@ -151,21 +151,4 @@ public class AdjazenzMatrix extends Matrix {
 
         return result;
     }
-
-    public boolean isMatrixAdjazent(){
-        ArrayList<Integer> result = new ArrayList<>();
-
-        for (int  row = 0; row < knoten; row++) {
-            for (int col = 0; col < knoten; col++){
-                if(col == row && super.getValue(row, col) != 0)
-                    return false;
-
-                if(super.getValue(row, col) != 0 && super.getValue(row, col) != 1)
-                    return false;
-            }
-        }
-        return true;
-    }
 }
-
-
