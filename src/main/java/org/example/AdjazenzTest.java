@@ -81,6 +81,9 @@ public class AdjazenzTest {
             System.out.println();
             System.out.println(String.format("Blöcke (%d)", logic.getBloecke().size()));
             System.out.println(logic.getBloecke());
+
+            System.out.println();
+            System.out.println("Determinante: "+logic.getSpannbaume());
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }

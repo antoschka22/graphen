@@ -7,10 +7,6 @@
 - [x] Komponenten, Artikulationen, Brücken
 - [ ] Benutzeroberfläche (GUI), Eingabe per Maus
 - [x] Eulersche Linien/Zyklen
-- [ ] Spannbäume/Gerüste
+- [x] Spannbäume/Gerüste
 - [x] Starke Zusammenhangskomponente
 - [x] Blöcke (schwierig!)
-- [ ] Test auf Isomorphie
-
-
-Abgabegespräch auf Basis von Programmcode ohne Kommentare

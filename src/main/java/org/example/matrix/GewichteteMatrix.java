@@ -21,6 +21,7 @@ public class GewichteteMatrix extends Matrix{
 
         Queue<Integer> queue = new LinkedList<>();
         queue.add(1);
+
         ArrayList<Integer> gewichtung = new ArrayList<>();
         ArrayList<Integer> besuchteKnoten = new ArrayList<>();
         ArrayList<int[]> result = new ArrayList<>();

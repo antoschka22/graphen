@@ -22,6 +22,7 @@ public class Logic {
     private final ArrayList<Integer> zyklus;
     private final ArrayList<Integer> eulerLinie;
     private final ArrayList<ArrayList<Integer>> bloecke;
+    private int spannbaume;
 
     public Logic (AdjazenzMatrix matrix) throws MatrixException {
         this.matrix = matrix;
@@ -39,6 +40,7 @@ public class Logic {
         this.zyklus = calcEulerzyklus();
         this.eulerLinie = calcEulerLinie();
         this.bloecke = calcBloecke(matrix);
+        this.spannbaume = calcSpannbaume();
     }
 
     public AdjazenzMatrix getMatrix(){ return matrix; }
@@ -68,6 +70,8 @@ public class Logic {
     public ArrayList<int[]> getBruecken() { return bruecken; }
 
     public ArrayList<Integer> getZyklus() { return zyklus; }
+
+    public int getSpannbaume() { return spannbaume; }
 
     private int[][] calcDistanzMatrix() throws MatrixException {
 
@@ -422,7 +426,7 @@ public class Logic {
                 Collections.sort(mergeBlock);
 
 
-                AdjazenzMatrix testMatrix = new AdjazenzMatrix(createMatrixFromArrayList(mergeBlock, inputMatrix));
+                AdjazenzMatrix testMatrix = new AdjazenzMatrix(createMatrixFromArrayList(mergeBlock, inputMatrix, true));
                 AdjazenzMatrix testWegmatrix = new AdjazenzMatrix(calcWegMatrix(testMatrix));
                 ArrayList<int[]> testKomponente = calcKomponente(testWegmatrix);
 
@@ -450,11 +454,15 @@ public class Logic {
     }
 
     // Erstelle aus einer ArrayList eine Adjazenzmatrix
-    private int[][] createMatrixFromArrayList(ArrayList<Integer> list, AdjazenzMatrix inputMatrix){
+    private int[][] createMatrixFromArrayList(ArrayList<Integer> list, AdjazenzMatrix inputMatrix, boolean block){
         int[][] result = new int[list.size()][list.size()];
 
         for(int i = 0; i < list.size(); i++){
-            int[] currRow = inputMatrix.getRow(list.get(i));
+            int[] currRow;
+            if(block)
+                 currRow = inputMatrix.getRow(list.get(i));
+            else
+                currRow = inputMatrix.getRow(i);
             int added = 0;
 
             for(int j = 0; j < currRow.length; j++){
@@ -468,5 +476,65 @@ public class Logic {
 
         return result;
 
+    }
+
+    private int calcSpannbaume() {
+        int result = 1;
+        ArrayList<ArrayList<Integer>> bloecke = getBloecke();
+
+        for(ArrayList<Integer> block : bloecke){
+            int[][] blockMatrix = createMatrixFromArrayList(block, matrix, false);
+
+            int[][] laplaceMatrix = matrix.laplaceMatrix();
+
+            // L := D - A
+            int[][] equals = matrix.subtraktionMatrix(laplaceMatrix, blockMatrix);
+
+            int[][] LStar = getDeterminanteUntermatrik(equals, 0);
+
+            result *= calcDeterminante(LStar);
+        }
+
+        return result;
+    }
+
+    private int calcDeterminante(int[][] matrix) {
+        int knoten = matrix.length;
+        int result = 0;
+
+        // diagonalen Minus rechnen
+        if(knoten == 2){
+            return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
+        }
+
+        for(int i = 0; i < knoten; i++){
+            //Skip erste Zeile und Spalte i
+            int[][] deterMatrix = getDeterminanteUntermatrik(matrix, i);
+
+            // Schachbrettmuster
+            if(i % 2 == 0)
+                result += matrix[0][i] * calcDeterminante(deterMatrix);
+            else
+                result -= matrix[0][i] * calcDeterminante(deterMatrix);
+        }
+
+        return result;
+    }
+
+    private int[][] getDeterminanteUntermatrik(int[][] matrix, int spalte){
+        int knoten = matrix.length;
+        int[][] result = new int[knoten - 1][knoten - 1];
+
+        for(int i = 1; i < knoten; i++){
+            int hinzugefuegt = 0;
+            for(int j = 0; j < knoten; j++){
+                if(j != spalte) {
+                    result[i - 1][hinzugefuegt] = matrix[i][j];
+                    hinzugefuegt++;
+                }
+            }
+        }
+
+        return result;
     }
 }

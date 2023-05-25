@@ -67,6 +67,34 @@ public class AdjazenzMatrix extends Matrix {
         return result;
     }
 
+    public int[][] subtraktionMatrix(int[][] matrixA, int[][] matrixB) {
+        int knoten = matrixA.length;
+
+        int[][] result = new int[knoten][knoten];
+
+        for (int i = 0; i < knoten; i++) {
+            for (int j = 0; j < knoten; j++) {
+                result[i][j] = matrixA[i][j] - matrixB[i][j];
+            }
+        }
+        return result;
+    }
+
+    /* Laplacematrix */
+    // Diagonale mit Knotengrad
+    public int[][] laplaceMatrix(){
+        int[][] result = new int[knoten][knoten];
+
+        for(int i = 0; i < knoten; i++){
+            for(int j = 0; j < knoten; j++){
+                if(i == j)
+                    result[i][j] = getKnotengrad(i);
+            }
+        }
+
+        return result;
+    }
+
     /* Potenzmatrix */
     public AdjazenzMatrix potenzMatrix(int hochzahl) throws MatrixException {
 

@@ -410,7 +410,7 @@ public class TestMatrix {
     }
 
     @Test
-    void calcMST_bsp__1() throws MatrixException {
+    void calcMST_bsp_1() throws MatrixException {
         int[][] matrix1 = {{0, 19, 0, 0, 0, 0, 0, 0, 21, 3, 0, 0, 32, 0, 0},
                             {19, 0, 2, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0},
                             {0, 2, 0, 31, 10, 0, 0, 0, 25, 0, 0, 0, 0, 0, 18},
