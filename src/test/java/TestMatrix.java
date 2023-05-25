@@ -1,5 +1,6 @@
 import org.example.Logic;
 import org.example.matrix.AdjazenzMatrix;
+import org.example.matrix.GewichteteMatrix;
 import org.example.matrix.MatrixException;
 import org.example.matrix.GerichteteMatrix;
 import org.junit.jupiter.api.Test;
@@ -379,4 +380,73 @@ public class TestMatrix {
         assertEquals(result, matrix2.calcStarkeZusammenhangskomponente());
     }
 
+    @Test
+    void calcMST_PDF_08() throws MatrixException {
+        int[][] matrix1 = {{0, 31, 7, 0, 0, 0, 0, 0, 10},
+                            {31, 0, 32, 1, 0, 0, 0, 0, 0},
+                            {7, 32, 0, 13, 21, 0, 21, 0, 8},
+                            {0, 1, 13, 0, 3, 15, 0, 5, 0},
+                            {0, 0, 21, 3, 0, 0, 26, 2, 16},
+                            {0, 0, 0, 15, 0, 0, 0, 32, 0},
+                            {0, 0, 21, 0, 26, 0, 0, 19, 32},
+                            {0, 0, 0, 5, 2, 32, 19, 0, 35},
+                            {10, 0, 8, 0, 16, 0, 32, 35, 0}};
+
+        GewichteteMatrix matrix = new GewichteteMatrix(matrix1);
+
+        ArrayList<int[]> result = new ArrayList<>();
+        result.add(new int[]{1, 3});
+        result.add(new int[]{3, 4});
+        result.add(new int[]{4, 7});
+        result.add(new int[]{3, 2});
+        result.add(new int[]{2, 0});
+        result.add(new int[]{2, 8});
+        result.add(new int[]{3, 5});
+        result.add(new int[]{7, 6});
+
+        for(int i = 0; i < result.size(); i++){
+            assertArrayEquals(result.get(i), matrix.getMST().get(i));
+        }
+    }
+
+    @Test
+    void calcMST_bsp__1() throws MatrixException {
+        int[][] matrix1 = {{0, 19, 0, 0, 0, 0, 0, 0, 21, 3, 0, 0, 32, 0, 0},
+                            {19, 0, 2, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0},
+                            {0, 2, 0, 31, 10, 0, 0, 0, 25, 0, 0, 0, 0, 0, 18},
+                            {0, 0, 31, 0, 22, 0, 14, 0, 0, 0, 0, 0, 0, 24, 30},
+                            {0, 0, 10, 22, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0},
+                            {0, 0, 0, 0, 0, 0, 0, 28, 0, 23, 4, 16, 0, 0, 0},
+                            {0, 0, 0, 14, 6, 0, 0, 0, 0, 0, 13, 7, 0, 0, 0},
+                            {0, 0, 0, 0, 0, 28, 0, 0, 0, 27, 0, 0, 0, 0, 0},
+                            {21, 20, 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0, 5},
+                            {3, 0, 0, 0, 0, 23, 0, 27, 0, 0, 0, 12, 17, 0, 0},
+                            {0, 0, 0, 0, 0, 4, 13, 0, 0, 0, 0, 26, 0, 0, 29},
+                            {0, 0, 0, 0, 0, 16, 7, 0, 0, 12, 26, 0, 0, 15, 0},
+                            {32, 0, 0, 0, 0, 0, 0, 0, 11, 17, 0, 0, 0, 9, 8},
+                            {0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 15, 9, 0, 1},
+                            {0, 0, 18, 30, 0, 0, 0, 0, 5, 0, 29, 0, 8, 1, 0}};
+
+        GewichteteMatrix matrix = new GewichteteMatrix(matrix1);
+
+        ArrayList<int[]> result = new ArrayList<>();
+        result.add(new int[]{1, 2});
+        result.add(new int[]{2, 4});
+        result.add(new int[]{4, 6});
+        result.add(new int[]{6, 11});
+        result.add(new int[]{11, 9});
+        result.add(new int[]{9, 0});
+        result.add(new int[]{6, 10});
+        result.add(new int[]{10, 5});
+        result.add(new int[]{6, 3});
+        result.add(new int[]{11, 13});
+        result.add(new int[]{13, 14});
+        result.add(new int[]{14, 8});
+        result.add(new int[]{14, 12});
+        result.add(new int[]{9, 7});
+
+        for(int i = 0; i < result.size(); i++){
+            assertArrayEquals(result.get(i), matrix.getMST().get(i));
+        }
+    }
 }

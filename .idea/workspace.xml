@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13455654-40d6-40bb-96fe-3ca3a058f02a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/GewichteteMatrixTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Logic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/MatrixException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/MatrixException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/AdjazenzTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/Adjazenzmatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/AdjazenzMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GerichteteMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GewichteteMatrixTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GewichteteMatrixTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/GewichteteMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/GewichteteMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/test2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GerichtetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/matrix.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/TestMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestMatrix.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,25 +45,13 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.obiscr.chatgpt.settings.ChatGPT&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.GewichteteMatrixTest">
+  <component name="RunManager" selected="Application.AdjazenzTest">
     <configuration name="AdjazenzTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.AdjazenzTest" />
-      <module name="graphen" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.matrix.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GerichtetTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.GerichtetTest" />
       <module name="graphen" />
       <extension name="coverage">
         <pattern>
@@ -94,19 +76,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.example.test2" />
-      <module name="graphen" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.matrix.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TestMatrix" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="graphen" />
       <option name="PACKAGE_NAME" value="" />
@@ -116,13 +85,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestMatrix.calcMST_PDF_08" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="graphen" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMatrix" />
+      <option name="METHOD_NAME" value="calcMST_PDF_08" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMatrix.calcMST_bsp__1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="graphen" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestMatrix" />
+      <option name="METHOD_NAME" value="calcMST_bsp__1" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GewichteteMatrixTest" />
-        <item itemvalue="Application.GerichtetTest" />
         <item itemvalue="Application.AdjazenzTest" />
+        <item itemvalue="JUnit.TestMatrix.calcMST_bsp__1" />
+        <item itemvalue="Application.GewichteteMatrixTest" />
+        <item itemvalue="JUnit.TestMatrix.calcMST_PDF_08" />
         <item itemvalue="JUnit.TestMatrix" />
-        <item itemvalue="Application.test2" />
       </list>
     </recent_temporary>
   </component>
