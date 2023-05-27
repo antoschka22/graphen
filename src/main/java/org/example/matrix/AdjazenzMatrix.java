@@ -24,8 +24,8 @@ public class AdjazenzMatrix extends Matrix {
             int[] kanten = getRow(row);
             int sum = 0;
 
-            for(int kante = 0; kante < kanten.length; kante++){
-                if(kanten[kante] == 1)
+            for (int i : kanten) {
+                if (i == 1)
                     sum++;
             }
 

@@ -37,7 +37,9 @@ public class AdjazenzTest {
             ArrayList<int[]> komponente = logic.getKomponente();
             for(int[] komponent : komponente){
                 for(int i = 0; i < komponent.length; i++){
-                    System.out.print(komponent[i]+";");
+                    if(i != 0)
+                        System.out.print(";");
+                    System.out.print(komponent[i]);
                 }
                 System.out.println();
             }
@@ -83,7 +85,7 @@ public class AdjazenzTest {
             System.out.println(logic.getBloecke());
 
             System.out.println();
-            System.out.println("Determinante: "+logic.getSpannbaume());
+            System.out.println("Spannbäume: "+logic.getSpannbaume());
         } catch (Exception ex){
             System.out.println("Exception found: "+ex.getMessage());
         }
